@@ -1,0 +1,31 @@
+canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  border: 1px solid black;
+}
+
+#action_menu {
+  position: fixed;
+  top: 500px;
+  display: flex;
+  flex-direction: row;
+  list-style: none;
+  width: 800px;
+  justify-content: space-between;
+}
+
+li {
+  border: 1px solid black;
+  padding: 20px;
+  width: 100px;
+  text-align: center;
+}
+
+li.selected {
+  background: orange
+}
+
+body {
+  position: relative;
+}
