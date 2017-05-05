@@ -30,8 +30,13 @@ CanvasManager.draw = function(){
 }
 
 CanvasManager.redraw = function(){
-  document.querySelector('canvas#network').remove()
+  CanvasManager.nodeCanvas.remove()
   CanvasManager.draw()
+}
+
+CanvasManager.clearStates = function(){
+  CanvasManager.stateCanvas.remove()
+  CanvasManager.buildStateCanvas()
 }
 
 CanvasManager.reColor = function(){

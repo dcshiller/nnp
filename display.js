@@ -14,8 +14,8 @@ function assignEditListeners(){
       window.editMode = e.target.getAttribute('data-mode')
       })
   })
-  document.querySelector("#clear_button").addEventListener("click", function(){network.reset(); Canvas.redraw();})
-  document.querySelector("#play_button").addEventListener("click", handlePause)
+  document.querySelector("#clear_button").addEventListener("click", function(){network.reset(); Canvas.clearStates(); Canvas.redraw();})
+  document.querySelector("#play_button").addEventListener("click", handlePlay)
   document.querySelector("#advance_button").addEventListener("click", Canvas.update)
 }
 
