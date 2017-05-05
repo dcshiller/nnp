@@ -1,82 +1,10 @@
 var Node = require('./node.js');
 var Network = require('./network.js');
+var Drawer = require('./drawer.js');
+var Canvas = require('./canvas_manager.js');
 require('./starting_network.js');
 
-function drawNode(canvas, node){
-  ctx = canvas.getContext('2d');
-  ctx.beginPath()
-  ctx.fillStyle = "black"
-  ctx.arc(node.x,node.y,20,0,2 * Math.PI)
-  node.connections.forEach(function(connectedNode){
-    ydiff = node.y - connectedNode.y
-    xdiff = node.x - connectedNode.x
-    angle = Math.atan2((ydiff),(xdiff))
-    length = Math.sqrt(ydiff ** 2 + xdiff ** 2)
-    xterminas = node.x - (20 * Math.cos(angle))
-    yterminas = node.y - (20 * Math.sin(angle))
-    xinitiatus = node.x - ((length - 20) * Math.cos(angle))
-    yinitiatus = node.y - ((length - 20) * Math.sin(angle))
-    ctx.moveTo(xinitiatus,yinitiatus)
-    ctx.lineTo(xterminas, yterminas)
-    ctx.lineTo(xterminas - 6 * Math.cos(angle - Math.PI/6), yterminas - 6 * Math.sin(angle - Math.PI/6));
-    ctx.moveTo(xterminas, yterminas);
-    ctx.lineTo(xterminas - 6 * Math.cos(angle + Math.PI/6), yterminas - 6 * Math.sin(angle + Math.PI/6));
-  })
-  ctx.stroke()
-  ctx.closePath()
-}
-
-function fillInNode(canvas, node){
-  ctx = canvas.getContext('2d');
-  if(node.lastState){
-    ctx.beginPath()
-    ctx.arc(node.x,node.y,18,0,2 * Math.PI)
-    ctx.fillStyle = "orange"
-    ctx.fill()
-    ctx.closePath()
-  }
-  else {
-    ctx.beginPath()
-    ctx.arc(node.x,node.y,18,0,2 * Math.PI)
-    ctx.fillStyle = "white"
-    ctx.fill()
-    ctx.closePath()
-  }
-}
-
-function createCanvas(id){
-  var canvas = document.createElement("canvas")
-  canvas.setAttribute('width', '1000');
-  canvas.setAttribute('height', '500');
-  if (id) { canvas.setAttribute("id", id); }
-  document.querySelector('body').appendChild(canvas)
-  return canvas
-}
-
-function redrawCanvas(){
-  document.querySelector('canvas#network').remove()
-  initializeCanvas()
-}
-
-function initializeCanvas(){
-  var canvas = createCanvas("network")
-  network.nodes.forEach(function(node){
-    drawNode(canvas, node)
-  })
-}
-
-function updateCanvas(canvas){
-  network.updateAll()
-  network.callWithNodes( fillInNode.bind(null, canvas) )
-  network.rememberAll()
-}
-
-document.addEventListener("DOMContentLoaded", function(){
-  initializeCanvas()
-  var canvas = createCanvas()
-  updateCanvas(canvas)
-  setInterval(updateCanvas.bind(null, canvas), 1000)
-  
+function assignEditListeners(){
   Array.prototype.slice.call(document.querySelectorAll('li')).forEach(function(el){
     el.addEventListener("click", function(e){ 
       Array.from(document.querySelectorAll('li')).forEach(
@@ -86,8 +14,10 @@ document.addEventListener("DOMContentLoaded", function(){
       window.editMode = e.target.getAttribute('data-mode')
       })
   })
-  document.querySelector("#clear_button").addEventListener("click", function(){network.nodes = []; redrawCanvas();})
-})
+  document.querySelector("#clear_button").addEventListener("click", function(){network.reset(); Canvas.redraw();})
+  document.querySelector("#play_button").addEventListener("click", handlePause)
+  document.querySelector("#advance_button").addEventListener("click", Canvas.update)
+}
 
 function getNode(x,y){
   for (node of network.nodes){
@@ -98,16 +28,10 @@ function getNode(x,y){
 }
 
 function drop(node, e){
-  // if (Math.sqrt((node.x - e.clientX) ** 2 + (node.y - e.clientY) ** 2) < 10) {
-  //   node.on()
-  //   node.remember()
-  //   document.removeEventListener(e.type, arguments.callee)
-  // }
-  // else {
   if (e.target.tagName == "CANVAS"){
     node.x = e.clientX
     node.y = e.clientY
-    redrawCanvas()
+    Canvas.redraw()
     document.removeEventListener(e.type, window.mouseUpHandler)
   }
   // }
@@ -116,7 +40,7 @@ function drop(node, e){
 function connect(node, e){
   otherNode = getNode(e.clientX,e.clientY)
   otherNode.pointFrom(node)
-  redrawCanvas()
+  Canvas.redraw()
   document.removeEventListener(e.type, window.mouseUpHandler)
 }
 
@@ -124,36 +48,74 @@ document.addEventListener("mousedown", function(e){
   if (e.target.tagName == "CANVAS") {
     switch (window.editMode) {
       case "move":
-        node = getNode(e.clientX,e.clientY)
-        window.mouseUpHandler = drop.bind(this, node)
-        document.addEventListener("mouseup", window.mouseUpHandler)
-        break;
+        handleMoveMouseup(e); break;
       case "place":
-        node = new Node(e.clientX, e.clientY, "charlie");
-        network.nodes.push(node);
-        redrawCanvas();
-        break;
+        handlePlaceMouseup(e); break;
       case "toggle":
-        node = getNode(e.clientX,e.clientY)
-        node.lastState ? node.off() : node.on()
-        node.remember()
-        break;
+        handleToggleMouseup(e); break;
       case "delete":
-        node = getNode(e.clientX,e.clientY)
-        network.nodes.splice(network.nodes.indexOf(node),1)
-        network.nodes.forEach(function(possibleConnection){
-          if(possibleConnection.connections.indexOf(node) >= 0){ 
-            possibleConnection.connections.splice(possibleConnection.connections.indexOf(node),1)
-          }
-        })
-        redrawCanvas()
-        break;
+        handleDeleteMouseup(e); break;
       case "connect":
-        node = getNode(e.clientX,e.clientY)
-        window.mouseUpHandler = connect.bind(this, node)
-        document.addEventListener("mouseup", window.mouseUpHandler)
-        break;
+        handleConnectMouseup(e); break;
     }
   }
+})
+
+function handleMoveMouseup(e){
+  node = getNode(e.clientX,e.clientY)
+  if (!node) { return }
+  window.mouseUpHandler = drop.bind(this, node)
+  document.addEventListener("mouseup", window.mouseUpHandler)
+}
+
+function handlePlaceMouseup(e){
+  node = new Node(e.clientX, e.clientY, "charlie");
+  network.nodes.push(node);
+  Canvas.redraw();
+}
+
+function handleToggleMouseup(e){
+  node = getNode(e.clientX,e.clientY)
+  if (!node) { return }
+  node.lastState ? node.off() : node.on()
+  node.remember()
+  Canvas.reColor()
+}
+
+function handleDeleteMouseup(e){
+  node = getNode(e.clientX,e.clientY)
+  if (!node) { return }
+  network.nodes.splice(network.nodes.indexOf(node),1)
+  network.nodes.forEach(function(possibleConnection){
+    if(possibleConnection.connections.indexOf(node) >= 0){ 
+      possibleConnection.connections.splice(possibleConnection.connections.indexOf(node),1)
+    }
+  })
+  Canvas.redraw()
+}
+
+function handleConnectMouseup(e){
+  node = getNode(e.clientX,e.clientY)
+  if (!node) { return }
+  window.mouseUpHandler = connect.bind(this, node)
+  document.addEventListener("mouseup", window.mouseUpHandler)
+}
+
+function handlePlay(){
+  if (window.interval){
+    clearInterval(window.interval);
+    window.interval = undefined;
+  }
+  else {
+    window.interval = setInterval(Canvas.update.bind(null), 1000)
+  }
+}
+
+document.addEventListener("DOMContentLoaded", function(){
+  Canvas.draw()
+  Canvas.buildNodeCanvas()
+  Canvas.buildStateCanvas()
+  Canvas.update()
+  assignEditListeners()
 })
 

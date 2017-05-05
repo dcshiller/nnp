@@ -24,6 +24,10 @@ Network.prototype.rememberAll = function(){
   this.callOnNodes(Node.prototype.remember)
 }
 
+Network.prototype.reset = function(){
+  this.nodes = []
+}
+
 Network.prototype.updateState = function(){
   this.updateAll()
   this.rememberAll()
