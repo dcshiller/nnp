@@ -9,9 +9,9 @@ Drawer.drawNode = function (canvas, node){
   ctx.stroke()
   ctx.closePath()
   ctx.beginPath()
-  for (connection of node.connections) {
-    let connectedNode = connection[0]
-    let connectionStrength = connection[1]
+  for (connection of node.connections.to) {
+    let connectedNode = connection.fromNode
+    let connectionStrength = connection.strength
     ctx.lineWidth = connectionStrength
     ydiff = node.y - connectedNode.y
     xdiff = node.x - connectedNode.x

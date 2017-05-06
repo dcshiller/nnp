@@ -54,9 +54,9 @@ CanvasManager.focusNode = function(){
     document.querySelector("#node_threshold").innerHTML = window.focusedNode.threshold
     document.querySelector("#node_name").innerHTML = window.focusedNode.name
     document.querySelector("#connection_list").innerHTML = ""
-    for (connection of window.focusedNode.connections){
+    for (connection of window.focusedNode.connections.to){
       listTag = document.createElement("li")
-      listTag.innerHTML = `${connection.name} ---> ${window.focusedNode.name}`
+      listTag.innerHTML = `${connection.fromNode.name} ---> ${window.focusedNode.name}`
       document.querySelector("#connection_list").appendChild(listTag)
     }
   }

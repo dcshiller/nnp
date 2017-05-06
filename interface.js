@@ -84,7 +84,7 @@ function handleDeleteMouseup(e){
   network.nodes.splice(network.nodes.indexOf(node),1)
   for (possibleConnection of network.nodes){
     if(possibleConnection.pointsTo(node)){ 
-      possibleConnection.removeConnection(node)
+      possibleConnection.removeConnectionsWith(node)
     }
   }
   Canvas.redraw()

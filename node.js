@@ -1,7 +1,7 @@
-var Connection = require('connection.js')
+var Connection = require('./connection.js')
 
 function Node(x,y,name){
-  this.connections = {to: [], from: []};
+  this.connections = { to: [], from: [] };
   this.state = 0
   this.lastState = 0
   this.threshold = 1
@@ -12,8 +12,8 @@ function Node(x,y,name){
 
 Node.prototype.assess = function(){
   value = 0
-  for (connection of this.connections){
-    value += (connection[0].lastState * connection[1])
+  for (connection of this.connections.to){
+    value += (connection.transmission())
   }
   if (value >= this.threshold){ return true }
   return false
@@ -52,23 +52,45 @@ Node.prototype.pointTo = function(otherNode){
 }
 
 Node.prototype.pointsTo = function(otherNode){
-  var included = false
-  for (connection of otherNode.connections){
-    if(connection[0] == this){
-      included = true
+  for (connection of this.connections.to){
+    if(connection.toNode == otherNode){
+      return true
     }
   }
-  return included
+  return false
 }
 
-Node.prototype.removeConnection = function(otherNode){
-  var newConnections = [];
-  for (connection of this.connections){
-    if (connection[0] != otherNode){
-      newConnections.push(connection);
+Node.prototype.removeConnectionsWith = function(otherNode){
+  for (connection of this.connections.to){
+    if(connection.toNode == otherNode){
+      connection.remove()
+    }
+  }
+  for (connection of this.connections.to){
+    if(connection.fromNode == otherNode){
+      connection.remove()
+    }
+  }
+}
+
+Node.prototype.removeConnection = function(connection){
+  var newConnections = { to: [], from: [] };
+  for (toConnection of this.connections.to){
+    if (connection != toConnection){
+      newConnections.to.push(connection);
+    }
+  }
+  for (fromConnection of this.connections.from){
+    if (connection != fromConnection){
+      newConnections.from.push(connection);
     }
   }
   this.connections = newConnections;
+}
+
+Node.prototype.removeAllConnections = function(){
+  for (connection of this.connections.to){ connection.remove() }
+  for (connection of this.connections.from){ connection.remove() }
 }
 
 module.exports = Node
