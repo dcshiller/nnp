@@ -1,3 +1,7 @@
+h1, h2 {
+  margin: 0;
+}
+
 canvas {
   position: fixed;
   top: 0;
@@ -15,7 +19,7 @@ canvas {
   justify-content: space-between;
 }
 
-li {
+#action_menu li {
   border: 1px solid black;
   padding: 20px;
   width: 100px;
@@ -28,4 +32,35 @@ li.selected {
 
 body {
   position: relative;
+}
+
+.focused_node {
+  height: 300px;
+  width: 300px;
+  border: 1px solid black;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.focused_node * {
+  text-align: center;
+}
+
+#focused_node {
+  height: 30px;
+  width: 100px;
+  border: 1px solid black;
+}
+
+.focused_node li {
+  list-style: none
+}
+
+#node_threshold {
+  display: inline-block;
+}
+
+.t-center {
+  text-align: center
 }

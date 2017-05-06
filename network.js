@@ -1,8 +1,22 @@
 var Node = require('./node.js')
 
 function Network (){
-  this.nodes = []
+  this.nodes = [];
+  this.nodeCount = 0;
 }
+
+Network.prototype.include = function(node){
+  this.nodes.push(node)
+  node.name = "#" + this.nodeCount++
+};
+
+Network.prototype.connectedNodes = function (thisNode) {
+  var connectedNodes = [];
+  for (otherNode of this.nodes){
+    if (thisNode.pointTo(otherNode)){ connectedNodes.push(otherNode); }
+  }
+  return connectedNodes;
+};
 
 Network.prototype.callOnNodes = function(func){
   for (node of this.nodes){

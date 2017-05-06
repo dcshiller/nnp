@@ -17,5 +17,41 @@
       <li id="play_button" data-mode="play">Play</li>
       <li id="advance_button" data-mode="advance">Advance</li>
     </ul>
+    <div class="focused_node">
+      <h1>Node in Focus</h1>
+      <table>
+        <tr>
+          <td>
+            <h4> Node Name </h4>
+          </td>
+          <td>
+            <h2 id="node_name">--</h2>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <h4> Node Threshold </h4>
+          </td>
+          <td>
+            <h2 id="node_threshold">--</h2>
+          </td>
+          <td class="t-center">
+            <button id="raise_threshold">+</button>
+            <button id="lower_threshold">-</button>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <h2>Connections</h2>
+          </td>
+        </tr>
+        <tr>
+          <td colspan='2'>
+            <ul id="connection_list">
+            </ul>
+          </td>
+        </tr>
+      </table>
+    </div>
   </body>
 </html>

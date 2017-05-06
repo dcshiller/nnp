@@ -1,5 +1,7 @@
+var Connection = require('connection.js')
+
 function Node(x,y,name){
-  this.connections = [];
+  this.connections = {to: [], from: []};
   this.state = 0
   this.lastState = 0
   this.threshold = 1
@@ -10,9 +12,9 @@ function Node(x,y,name){
 
 Node.prototype.assess = function(){
   value = 0
-  this.connections.forEach(function(connection){
-    value += connection.lastState
-  })
+  for (connection of this.connections){
+    value += (connection[0].lastState * connection[1])
+  }
   if (value >= this.threshold){ return true }
   return false
 }
@@ -34,7 +36,39 @@ Node.prototype.update = function(){
 }
 
 Node.prototype.pointFrom = function(otherNode){
-  this.connections.push(otherNode)
+  new Connection(otherNode, this)
+}
+
+Node.prototype.addToConnection = function(connection){
+  this.connections.to.push(connection)
+}
+
+Node.prototype.addFromConnection = function(connection){
+  this.connections.from.push(connection)
+}
+
+Node.prototype.pointTo = function(otherNode){
+  new Connection(this, otherNode)
+}
+
+Node.prototype.pointsTo = function(otherNode){
+  var included = false
+  for (connection of otherNode.connections){
+    if(connection[0] == this){
+      included = true
+    }
+  }
+  return included
+}
+
+Node.prototype.removeConnection = function(otherNode){
+  var newConnections = [];
+  for (connection of this.connections){
+    if (connection[0] != otherNode){
+      newConnections.push(connection);
+    }
+  }
+  this.connections = newConnections;
 }
 
 module.exports = Node
