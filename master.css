@@ -9,6 +9,14 @@ canvas {
   border: 1px solid black;
 }
 
+#network {
+  z-index: 2
+}
+
+#states {
+  z-index: 3
+}
+
 #action_menu {
   position: fixed;
   top: 500px;

@@ -82,7 +82,7 @@ function handleDeleteMouseup(e){
   node = getNode(e.clientX,e.clientY)
   if (!node) { return }
   network.nodes.splice(network.nodes.indexOf(node),1)
-  for (possibleConnection of network.nodes){
+  for (let possibleConnection of network.nodes){
     if(possibleConnection.pointsTo(node)){ 
       possibleConnection.removeConnectionsWith(node)
     }

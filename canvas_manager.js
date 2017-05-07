@@ -54,9 +54,17 @@ CanvasManager.focusNode = function(){
     document.querySelector("#node_threshold").innerHTML = window.focusedNode.threshold
     document.querySelector("#node_name").innerHTML = window.focusedNode.name
     document.querySelector("#connection_list").innerHTML = ""
-    for (connection of window.focusedNode.connections.to){
-      listTag = document.createElement("li")
-      listTag.innerHTML = `${connection.fromNode.name} ---> ${window.focusedNode.name}`
+    for (let connection of window.focusedNode.connections.to){
+      let listTag = document.createElement("li")
+      listTag.innerHTML = `${connection.fromNode.name} --${connection.strength}--> ${window.focusedNode.name}`
+      let raiseButton = document.createElement("button")
+      raiseButton.innerHTML = "+"
+      raiseButton.addEventListener("click", function(e){connection.increaseStrength(); CanvasManager.redraw(); CanvasManager.focusNode();})
+      let lowerButton = document.createElement("button")
+      lowerButton.innerHTML = "-"
+      lowerButton.addEventListener("click", function(e){connection.decreaseStrength(); CanvasManager.redraw(); CanvasManager.focusNode();})
+      listTag.appendChild(raiseButton)
+      listTag.appendChild(lowerButton)
       document.querySelector("#connection_list").appendChild(listTag)
     }
   }

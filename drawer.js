@@ -8,11 +8,12 @@ Drawer.drawNode = function (canvas, node){
   ctx.arc(node.x,node.y,20,0,2 * Math.PI)
   ctx.stroke()
   ctx.closePath()
-  ctx.beginPath()
-  for (connection of node.connections.to) {
+  for (let connection of node.connections.to) {
+    ctx.beginPath()
     let connectedNode = connection.fromNode
-    let connectionStrength = connection.strength
+    let connectionStrength = connection.strength > 0 ? connection.strength : (-1 * connection.strength)
     ctx.lineWidth = connectionStrength
+    ctx.strokeStyle = connection.strength > 0 ? 'black' : 'red'
     ydiff = node.y - connectedNode.y
     xdiff = node.x - connectedNode.x
     angle = Math.atan2((ydiff),(xdiff))
@@ -23,12 +24,13 @@ Drawer.drawNode = function (canvas, node){
     yinitiatus = node.y - ((length - 20) * Math.sin(angle))
     ctx.moveTo(xinitiatus,yinitiatus)
     ctx.lineTo(xterminas, yterminas)
-    ctx.lineTo(xterminas - (3 + 3 * connectionStrength) * Math.cos(angle - Math.PI/6), yterminas - (3 + 3 * connectionStrength) * Math.sin(angle - Math.PI/6));
+    ctx.lineTo(xterminas - (3 + 3 * connectionStrength) * Math.cos(angle - Math.PI/(5 + connectionStrength)), yterminas - (3 + 3 * connectionStrength) * Math.sin(angle - Math.PI/(5 + connectionStrength)));
     ctx.moveTo(xterminas, yterminas);
-    ctx.lineTo(xterminas - (3 + 3 * connectionStrength) * Math.cos(angle + Math.PI/6), yterminas - (3 + 3 * connectionStrength) * Math.sin(angle + Math.PI/6));
+    ctx.lineTo(xterminas - (3 + 3 * connectionStrength) * Math.cos(angle + Math.PI/(5 + connectionStrength)), yterminas - (3 + 3 * connectionStrength) * Math.sin(angle + Math.PI/(5 + connectionStrength)));
     ctx.stroke()
+    ctx.strokeStyle = 'black'
+    ctx.closePath()
   }
-  ctx.closePath()
 }
 
 Drawer.fillInNode = function (canvas, node){

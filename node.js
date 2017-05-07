@@ -12,7 +12,7 @@ function Node(x,y,name){
 
 Node.prototype.assess = function(){
   value = 0
-  for (connection of this.connections.to){
+  for (let connection of this.connections.to){
     value += (connection.transmission())
   }
   if (value >= this.threshold){ return true }
@@ -52,7 +52,7 @@ Node.prototype.pointTo = function(otherNode){
 }
 
 Node.prototype.pointsTo = function(otherNode){
-  for (connection of this.connections.to){
+  for (let connection of this.connections.to){
     if(connection.toNode == otherNode){
       return true
     }
@@ -61,12 +61,12 @@ Node.prototype.pointsTo = function(otherNode){
 }
 
 Node.prototype.removeConnectionsWith = function(otherNode){
-  for (connection of this.connections.to){
+  for (let connection of this.connections.to){
     if(connection.toNode == otherNode){
       connection.remove()
     }
   }
-  for (connection of this.connections.to){
+  for (let connection of this.connections.to){
     if(connection.fromNode == otherNode){
       connection.remove()
     }
@@ -75,12 +75,12 @@ Node.prototype.removeConnectionsWith = function(otherNode){
 
 Node.prototype.removeConnection = function(connection){
   var newConnections = { to: [], from: [] };
-  for (toConnection of this.connections.to){
+  for (let toConnection of this.connections.to){
     if (connection != toConnection){
       newConnections.to.push(connection);
     }
   }
-  for (fromConnection of this.connections.from){
+  for (let fromConnection of this.connections.from){
     if (connection != fromConnection){
       newConnections.from.push(connection);
     }
@@ -89,8 +89,8 @@ Node.prototype.removeConnection = function(connection){
 }
 
 Node.prototype.removeAllConnections = function(){
-  for (connection of this.connections.to){ connection.remove() }
-  for (connection of this.connections.from){ connection.remove() }
+  for (let connection of this.connections.to){ connection.remove() }
+  for (let connection of this.connections.from){ connection.remove() }
 }
 
 module.exports = Node

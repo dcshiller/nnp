@@ -11,6 +11,16 @@ Connection.prototype.remove = function(){
   this.fromNode.removeConneciton(this);
 }
 
+Connection.prototype.increaseStrength = function(){
+  if (this.strength == -1) {this.strength = 1}
+  else { this.strength++ }
+}
+
+Connection.prototype.decreaseStrength = function(){
+  if (this.strength == 1) {this.strength = -1}
+  else { this.strength-- }
+}
+
 Connection.prototype.transmission = function(){
   return this.fromNode.lastState * this.strength
 }
