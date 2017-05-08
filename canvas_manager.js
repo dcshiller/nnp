@@ -2,7 +2,8 @@ var Drawer = require('./drawer.js');
 
 var CanvasManager = {
   stateCanvas: null,
-  nodeCanvas: null
+  nodeCanvas: null,
+  selectionCanvas: null
 }
 
 CanvasManager.create = function(id){
@@ -22,6 +23,28 @@ CanvasManager.buildStateCanvas = function(){
   CanvasManager.stateCanvas = CanvasManager.create("states")
 }
 
+CanvasManager.buildSelectionCanvas = function(){
+  CanvasManager.selectionCanvas = CanvasManager.create("selection")
+}
+
+var clearNodeCanvas = function(){
+  if (!CanvasManager.nodeCanvas){ return }
+  CanvasManager.nodeCanvas.remove();
+  CanvasManager.buildNodeCanvas();
+}
+
+var clearSelectionCanvas = function(){
+  if (!CanvasManager.selectionCanvas){ return }
+  CanvasManager.selectionCanvas.remove();
+  CanvasManager.buildSelectionCanvas();
+}
+
+var clearStateCanvas = function(){
+  if (!CanvasManager.stateCanvas){ return }
+  CanvasManager.stateCanvas.remove();
+  CanvasManager.buildStateCanvas();
+}
+
 CanvasManager.draw = function(){
   CanvasManager.nodeCanvas = CanvasManager.create("network")
   network.nodes.forEach(function(node){
@@ -29,9 +52,17 @@ CanvasManager.draw = function(){
   }) 
 }
 
+var highlightSelection = function(){
+  clearSelectionCanvas();
+  if(window.focusedNode){
+    Drawer.highlight(window.focusedNode, CanvasManager.selectionCanvas)
+  }
+}
+
 CanvasManager.redraw = function(){
   CanvasManager.nodeCanvas.remove()
-  CanvasManager.draw()
+  CanvasManager.draw();
+  highlightSelection();
 }
 
 CanvasManager.clearStates = function(){
@@ -40,6 +71,7 @@ CanvasManager.clearStates = function(){
 }
 
 CanvasManager.reColor = function(){
+  CanvasManager.clearStates()
   network.callWithNodes( Drawer.fillInNode.bind(null, CanvasManager.stateCanvas) )
 }
 
@@ -50,6 +82,7 @@ CanvasManager.update = function(){
 }
 
 CanvasManager.focusNode = function(){
+  highlightSelection();
   if (window.focusedNode){
     document.querySelector("#node_threshold").innerHTML = window.focusedNode.threshold
     document.querySelector("#node_name").innerHTML = window.focusedNode.name

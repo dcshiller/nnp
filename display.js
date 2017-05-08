@@ -9,6 +9,7 @@ var Interface = require('./interface.js');
 document.addEventListener("DOMContentLoaded", function(){
   Canvas.draw()
   Canvas.buildStateCanvas()
+  Canvas.buildSelectionCanvas()
   Canvas.update()
   Interface.initialize(Canvas)
   Interface.assignButtonHandlers()

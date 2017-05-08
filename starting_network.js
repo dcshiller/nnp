@@ -7,5 +7,6 @@ var n2 = new Node(400,200,"")
 network.include(n1)
 network.include(n2)
 n1.pointTo(n2)
+n1.pointTo(n1)
 
 module.exports = network

@@ -25,4 +25,8 @@ Connection.prototype.transmission = function(){
   return this.fromNode.lastState * this.strength
 }
 
+Connection.prototype.toSelf = function(){
+  return this.fromNode == this.toNode
+}
+
 module.exports = Connection

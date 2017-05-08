@@ -4,9 +4,10 @@ var Canvas;
 
 function drop(node, e){
   if (e.target.tagName == "CANVAS"){
-    node.x = e.clientX
-    node.y = e.clientY
+    node.x = e.offsetX
+    node.y = e.offsetY
     Canvas.redraw()
+    Canvas.reColor()
     document.removeEventListener(e.type, window.mouseUpHandler)
   }
 }
@@ -24,14 +25,14 @@ function lowerThreshold(){
 }
 
 // function select(){
-//   window.focusedNode = getNode(e.clientX,e.clientY)
+//   window.focusedNode = getNode(e.offsetX,e.offsetY)
 //   if (window.focusedNode) {
 //     Canvas.focusNode(window.focusedNode)
 //   }
 // }
 
 function connect(node, e){
-  otherNode = getNode(e.clientX,e.clientY)
+  otherNode = getNode(e.offsetX,e.offsetY)
   if (otherNode && !node.pointsTo(otherNode)){
     node.pointTo(otherNode)
     Canvas.redraw()
@@ -48,21 +49,21 @@ function getNode(x,y){
 }
 
 function handleMoveMouseup(e){
-  node = getNode(e.clientX,e.clientY)
+  node = getNode(e.offsetX,e.offsetY)
   if (!node) { return }
   window.mouseUpHandler = drop.bind(this, node)
   document.addEventListener("mouseup", window.mouseUpHandler)
 }
 
 function handlePlaceMouseup(e){
-  if (getNode(e.clientX, e.clientY)){
-    window.focusedNode = getNode(e.clientX,e.clientY)
+  if (getNode(e.offsetX, e.offsetY)){
+    window.focusedNode = getNode(e.offsetX,e.offsetY)
     if (window.focusedNode) {
       Canvas.focusNode(window.focusedNode)
     }
   }
   else {
-    node = new Node(e.clientX, e.clientY, "charlie");
+    node = new Node(e.offsetX, e.offsetY, "charlie");
     window.focusedNode = node
     network.include(node);
     Canvas.focusNode();
@@ -71,7 +72,7 @@ function handlePlaceMouseup(e){
 }
 
 function handleToggleMouseup(e){
-  node = getNode(e.clientX,e.clientY)
+  node = getNode(e.offsetX,e.offsetY)
   if (!node) { return }
   node.lastState ? node.off() : node.on()
   node.remember()
@@ -79,7 +80,7 @@ function handleToggleMouseup(e){
 }
 
 function handleDeleteMouseup(e){
-  node = getNode(e.clientX,e.clientY)
+  node = getNode(e.offsetX,e.offsetY)
   if (!node) { return }
   network.nodes.splice(network.nodes.indexOf(node),1)
   for (let possibleConnection of network.nodes){
@@ -91,7 +92,7 @@ function handleDeleteMouseup(e){
 }
 
 function handleConnectMouseup(e){
-  node = getNode(e.clientX,e.clientY)
+  node = getNode(e.offsetX,e.offsetY)
   if (!node) { return }
   window.mouseUpHandler = connect.bind(this, node)
   document.addEventListener("mouseup", window.mouseUpHandler)
