@@ -52,7 +52,7 @@ Node.prototype.pointTo = function(otherNode){
 }
 
 Node.prototype.pointsTo = function(otherNode){
-  for (let connection of this.connections.to){
+  for (let connection of this.connections.from){
     if(connection.toNode == otherNode){
       return true
     }

@@ -24,7 +24,7 @@ function drawSelfConnection(ctx, connection){
   let arcEndX = connection.toNode.x + 17 * Math.sin(Math.PI/(6))
   let arcEndY = connection.toNode.y + 22 * Math.cos(Math.PI/(6))
   // ctx.moveTo(arcStartX, arcStartY)
-  ctx.arc(arcStartX, arcStartY, 10, -.5 * Math.PI, -1 * Math.PI)
+  ctx.arc(arcStartX, arcStartY, 10, 1.5 * Math.PI, 1 * Math.PI)
   ctx.lineTo(arcEndX, arcEndY)
   ctx.lineTo(arcEndX + (3 + 3 ) * Math.cos(-1.65 * Math.PI - Math.PI/(5 )), arcEndY + (3 + 3 ) * Math.sin(-1.65 * Math.PI - Math.PI/(5 )));
   ctx.moveTo(arcEndX, arcEndY);
