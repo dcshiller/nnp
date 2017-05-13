@@ -14,15 +14,18 @@
       <li data-mode="toggle">Toggle</li>
       <li data-mode="delete">Delete</li>
       <li id="clear_button" data-mode="clear">Clear</li>
+    </ul>
+    <ul id="play_menu">
       <li id="play_button" data-mode="play">Play</li>
       <li id="advance_button" data-mode="advance">Advance</li>
     </ul>
     <div class="focused_node">
       <h1>Node in Focus</h1>
+      <hr>
       <table>
         <tr>
           <td>
-            <h4> Node Name </h4>
+            <h4> Name </h4>
           </td>
           <td>
             <h2 id="node_name">--</h2>
@@ -30,7 +33,7 @@
         </tr>
         <tr>
           <td>
-            <h4> Node Threshold </h4>
+            <h4> Threshold </h4>
           </td>
           <td>
             <h2 id="node_threshold">--</h2>
@@ -40,14 +43,17 @@
             <button id="lower_threshold">-</button>
           </td>
         </tr>
-        <tr>
-          <td>
-            <h2>Connections</h2>
+        <tr class="connection_row" id="connection_to_row">
+          <td colspan='3'>
+            <h3 class="t-center">Afferent Connections</h3>
+            <ul id="afferent_connection_list">
+            </ul>
           </td>
         </tr>
-        <tr>
-          <td colspan='2'>
-            <ul id="connection_list">
+        <tr class="connection_row text-center" id="connection_from_row">
+          <td colspan='3'>
+            <h3 class="t-center">Efferent Connections</h3>
+            <ul id="efferent_connection_list">
             </ul>
           </td>
         </tr>

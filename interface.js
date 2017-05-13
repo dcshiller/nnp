@@ -2,7 +2,17 @@ var Node = require('./node.js')
 var Network = require('./network.js')
 var Canvas;
 
-function drop(node, e){
+function connect(node, e){
+  otherNode = getNode(e.offsetX,e.offsetY)
+  focusOnSelection(e)
+  if (otherNode && !node.pointsTo(otherNode)){
+    node.pointTo(otherNode)
+    Canvas.redraw()
+  }
+  document.removeEventListener(e.type, window.mouseUpHandler)
+}
+
+function place(node, e){
   if (e.target.tagName == "CANVAS"){
     node.x = e.offsetX
     node.y = e.offsetY
@@ -24,22 +34,6 @@ function lowerThreshold(){
   }
 }
 
-// function select(){
-//   window.focusedNode = getNode(e.offsetX,e.offsetY)
-//   if (window.focusedNode) {
-//     Canvas.focusNode(window.focusedNode)
-//   }
-// }
-
-function connect(node, e){
-  otherNode = getNode(e.offsetX,e.offsetY)
-  if (otherNode && !node.pointsTo(otherNode)){
-    node.pointTo(otherNode)
-    Canvas.redraw()
-  }
-  document.removeEventListener(e.type, window.mouseUpHandler)
-}
-
 function getNode(x,y){
   for (node of network.nodes){
     if (Math.sqrt((x - node.x) ** 2 + (y - node.y) ** 2) < 20) {
@@ -48,19 +42,24 @@ function getNode(x,y){
   }
 }
 
+function focusOnSelection(e){
+  window.focusedNode = getNode(e.offsetX,e.offsetY)
+  if (window.focusedNode) {
+    Canvas.focusNode(window.focusedNode)
+  }
+}
+
 function handleMoveMouseup(e){
   node = getNode(e.offsetX,e.offsetY)
+  focusOnSelection(e)
   if (!node) { return }
-  window.mouseUpHandler = drop.bind(this, node)
+  window.mouseUpHandler = place.bind(this, node)
   document.addEventListener("mouseup", window.mouseUpHandler)
 }
 
 function handlePlaceMouseup(e){
   if (getNode(e.offsetX, e.offsetY)){
-    window.focusedNode = getNode(e.offsetX,e.offsetY)
-    if (window.focusedNode) {
-      Canvas.focusNode(window.focusedNode)
-    }
+    focusOnSelection(e)
   }
   else {
     node = new Node(e.offsetX, e.offsetY, "charlie");
@@ -73,6 +72,7 @@ function handlePlaceMouseup(e){
 
 function handleToggleMouseup(e){
   node = getNode(e.offsetX,e.offsetY)
+  focusOnSelection(e)
   if (!node) { return }
   node.lastState ? node.off() : node.on()
   node.remember()
@@ -94,6 +94,7 @@ function handleDeleteMouseup(e){
 function handleConnectMouseup(e){
   node = getNode(e.offsetX,e.offsetY)
   if (!node) { return }
+  focusOnSelection(e)
   window.mouseUpHandler = connect.bind(this, node)
   document.addEventListener("mouseup", window.mouseUpHandler)
 }
@@ -110,23 +111,33 @@ function handlePlay(){
   }
 }
 
+function selectNewModeHandler(e) {
+    for (ele of document.querySelectorAll('li')){
+      ele.classList = ele.classList.value.replace("selected", "")
+    }
+    e.target.classList += 'selected';
+    window.editMode = e.target.getAttribute('data-mode')
+}
+
+function assignEditModeHandlers(){
+  for ( liElement of document.querySelectorAll('li')) {
+    liElement.addEventListener("click", selectNewModeHandler)
+  };
+}
+
+function assignAuxiliaryButtonHandlers(){
+  document.querySelector("#clear_button").addEventListener("click", function(){network.reset(); Canvas.clearStates(); Canvas.redraw();})
+  document.querySelector("#play_button").addEventListener("click", handlePlay)
+  document.querySelector("#advance_button").addEventListener("click", Canvas.update);
+  document.querySelector("#raise_threshold").addEventListener("click", function(){raiseThreshold(); Canvas.focusNode();})
+  document.querySelector("#lower_threshold").addEventListener("click", function(){lowerThreshold(); Canvas.focusNode();})
+}
+
 module.exports = {
   initialize: function(canvasManager){ Canvas = canvasManager},
   assignButtonHandlers: function (){
-    Array.prototype.slice.call(document.querySelectorAll('li')).forEach(function(el){
-      el.addEventListener("click", function(e){ 
-        Array.from(document.querySelectorAll('li')).forEach(
-          function(ele){ele.classList = ele.classList.value.replace("selected", "")}
-        )
-        e.target.classList += 'selected';
-        window.editMode = e.target.getAttribute('data-mode')
-        })
-    })
-    document.querySelector("#clear_button").addEventListener("click", function(){network.reset(); Canvas.clearStates(); Canvas.redraw();})
-    document.querySelector("#play_button").addEventListener("click", handlePlay)
-    document.querySelector("#advance_button").addEventListener("click", Canvas.update);
-    document.querySelector("#raise_threshold").addEventListener("click", function(){raiseThreshold(); Canvas.focusNode();})
-    document.querySelector("#lower_threshold").addEventListener("click", function(){lowerThreshold(); Canvas.focusNode();})
+    assignEditModeHandlers();
+    assignAuxiliaryButtonHandlers();
   },
   assignMouseHandlers: function(){
     document.addEventListener("mousedown", function(e){

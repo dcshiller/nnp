@@ -81,24 +81,36 @@ CanvasManager.update = function(){
   network.rememberAll()
 }
 
+function writeConnectionDetails(connection, list){
+  let listTag = document.createElement("li")
+  listTag.innerHTML = `${connection.fromNode.name} (${connection.strength}) ----> ${connection.toNode.name}`
+  let raiseButton = document.createElement("button")
+  let lowerButton = document.createElement("button")
+  let removeButton = document.createElement("button")
+  raiseButton.innerHTML = "+"
+  lowerButton.innerHTML = "-"
+  removeButton.innerHTML = "x"
+  raiseButton.addEventListener("click", function(e){connection.increaseStrength(); CanvasManager.redraw(); CanvasManager.focusNode();})
+  lowerButton.addEventListener("click", function(e){connection.decreaseStrength(); CanvasManager.redraw(); CanvasManager.focusNode();})
+  removeButton.addEventListener("click", function(e){connection.remove(); CanvasManager.redraw(); CanvasManager.focusNode();})
+  listTag.appendChild(raiseButton)
+  listTag.appendChild(lowerButton)
+  listTag.appendChild(removeButton)
+  document.querySelector(list).appendChild(listTag)
+}
+
 CanvasManager.focusNode = function(){
   highlightSelection();
   if (window.focusedNode){
     document.querySelector("#node_threshold").innerHTML = window.focusedNode.threshold
     document.querySelector("#node_name").innerHTML = window.focusedNode.name
-    document.querySelector("#connection_list").innerHTML = ""
+    document.querySelector("#afferent_connection_list").innerHTML = ""
+    document.querySelector("#efferent_connection_list").innerHTML = ""
     for (let connection of window.focusedNode.connections.to){
-      let listTag = document.createElement("li")
-      listTag.innerHTML = `${connection.fromNode.name} --${connection.strength}--> ${window.focusedNode.name}`
-      let raiseButton = document.createElement("button")
-      raiseButton.innerHTML = "+"
-      raiseButton.addEventListener("click", function(e){connection.increaseStrength(); CanvasManager.redraw(); CanvasManager.focusNode();})
-      let lowerButton = document.createElement("button")
-      lowerButton.innerHTML = "-"
-      lowerButton.addEventListener("click", function(e){connection.decreaseStrength(); CanvasManager.redraw(); CanvasManager.focusNode();})
-      listTag.appendChild(raiseButton)
-      listTag.appendChild(lowerButton)
-      document.querySelector("#connection_list").appendChild(listTag)
+      writeConnectionDetails(connection, "#afferent_connection_list")
+    }
+    for (let connection of window.focusedNode.connections.from){
+      writeConnectionDetails(connection, "#efferent_connection_list")
     }
   }
 }

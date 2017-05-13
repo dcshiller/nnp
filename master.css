@@ -20,11 +20,35 @@ canvas {
 #action_menu {
   position: fixed;
   top: 530px;
+  left: 30px;
+  margin: 10px 0;
+  padding: 0;
   display: flex;
   flex-direction: row;
   list-style: none;
-  width: 800px;
+  min-width: 800px;
+  width: 1000px;
   justify-content: space-between;
+}
+
+#play_menu {
+  position: fixed;
+  top: 630px;
+  display: flex;
+  flex-direction: row;
+  list-style: none;
+  width: 100%;
+  margin: auto;
+  justify-content: center;
+}
+
+#play_menu li {
+  border: 1px solid black;
+  border-radius: 3px;
+  padding: 10px;
+  width: 75px;
+  margin-right: 20px;
+  text-align: center;
 }
 
 #action_menu li {
@@ -43,16 +67,27 @@ body {
 }
 
 .focused_node {
-  height: 300px;
-  width: 300px;
+  height: 480px;
+  width: 250px;
   border: 1px solid black;
-  position: absolute;
-  right: 0;
-  top: 0;
+  padding: 10px;
+  position: fixed;
+  left: 1050px;
+  top: 30px;
+}
+
+table {
+  padding: 5px;
+  width: 100%
+}
+.connection_row {
+  background: rgba(10,10,10,.2)
 }
 
 .focused_node * {
-  text-align: center;
+  text-align: left;
+  margin-top: 0px
+  margin-bottom: 0px
 }
 
 #focused_node {
@@ -70,5 +105,5 @@ body {
 }
 
 .t-center {
-  text-align: center
+  text-align: center !important
 }

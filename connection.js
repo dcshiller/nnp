@@ -7,8 +7,8 @@ function Connection(fromNode, toNode, strength) {
 }
 
 Connection.prototype.remove = function(){
-  this.toNode.removeConneciton(this);
-  this.fromNode.removeConneciton(this);
+  this.toNode.removeConnection(this);
+  this.fromNode.removeConnection(this);
 }
 
 Connection.prototype.increaseStrength = function(){

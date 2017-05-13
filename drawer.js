@@ -32,14 +32,18 @@ function drawSelfConnection(ctx, connection){
   ctx.stroke()
 }
 
+function radius(node){
+  return (20 + (3 * node.threshold)/2)
+}
+
 function drawOtherConnection(ctx, connection){
   let connectionMagnitude = connection.strength > 0 ? connection.strength : (-1 * connection.strength)
   let angle = getAngle(connection.fromNode.x,connection.fromNode.y, connection.toNode.x,connection.toNode.y)
   let length = getLength(connection.fromNode.x,connection.fromNode.y, connection.toNode.x,connection.toNode.y)
-  let xterminas = connection.toNode.x + (20 * Math.cos(angle))
-  let yterminas = connection.toNode.y + (20 * Math.sin(angle))
-  let xinitiatus = connection.toNode.x + ((length - 20) * Math.cos(angle))
-  let yinitiatus = connection.toNode.y + ((length - 20) * Math.sin(angle))
+  let xterminas = connection.toNode.x + (radius(connection.toNode)) * Math.cos(angle)
+  let yterminas = connection.toNode.y + (radius(connection.toNode)) * Math.sin(angle)
+  let xinitiatus = connection.toNode.x + ((length - radius(connection.fromNode)) * Math.cos(angle))
+  let yinitiatus = connection.toNode.y + ((length - radius(connection.fromNode)) * Math.sin(angle))
   drawArrowFrom(xinitiatus,yinitiatus,xterminas,yterminas,connectionMagnitude)
 }
 
@@ -86,27 +90,27 @@ Drawer.highlight = function(node){
   ctx = canvas.getContext('2d');
   ctx.beginPath();
   ctx.strokeStyle = "blue"
-  ctx.arc(node.x,node.y,22,0,2 * Math.PI);
+  ctx.arc(node.x,node.y, 22 + (3 * node.threshold)/2 ,0,2 * Math.PI);
   ctx.stroke();
   ctx.closePath();
 }
 
+function fillNode(color){
+  ctx.arc(node.x,node.y,18,0,2 * Math.PI)
+  ctx.fillStyle = color
+  ctx.fill()
+}
+
 Drawer.fillInNode = function (canvas, node){
   ctx = canvas.getContext('2d');
+  ctx.beginPath()
   if(node.lastState){
-    ctx.beginPath()
-    ctx.arc(node.x,node.y,18,0,2 * Math.PI)
-    ctx.fillStyle = "orange"
-    ctx.fill()
-    ctx.closePath()
+    fillNode("orange")
   }
   else {
-    ctx.beginPath()
-    ctx.arc(node.x,node.y,18,0,2 * Math.PI)
-    ctx.fillStyle = "white"
-    ctx.fill()
-    ctx.closePath()
+    fillNode("white")
   }
+  ctx.closePath()
 }
 
 module.exports = Drawer

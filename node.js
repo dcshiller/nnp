@@ -77,12 +77,12 @@ Node.prototype.removeConnection = function(connection){
   var newConnections = { to: [], from: [] };
   for (let toConnection of this.connections.to){
     if (connection != toConnection){
-      newConnections.to.push(connection);
+      newConnections.to.push(toConnection);
     }
   }
   for (let fromConnection of this.connections.from){
     if (connection != fromConnection){
-      newConnections.from.push(connection);
+      newConnections.from.push(fromConnection);
     }
   }
   this.connections = newConnections;
