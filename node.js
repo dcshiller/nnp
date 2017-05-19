@@ -93,4 +93,34 @@ Node.prototype.removeAllConnections = function(){
   for (let connection of this.connections.from){ connection.remove() }
 }
 
+// Node.prototype.connectionsByName = function(){
+//   var toNames = new Set();
+//   for (let c of this.connections.to) { toNames.add(c.byName) }
+//   var fromNames = new Set();
+//   for (let c of this.connections.to) { fromNames.add(c.byName) }
+//   return {
+//     to: toNames,
+//     from: fromNames
+//   }
+// }
+
+Node.prototype.toObj = function(){
+  return {
+    state: this.state,
+    lastState: this.lastState,
+    threshold: this.threshold,
+    x: this.x,
+    y: this.y,
+    name: this.name
+  }
+}
+
+Node.fromObj = function(obj){
+  const node = new Node(obj.x, obj.y, obj.name)
+  node.state = obj.state || 0
+  node.lastState = obj.lastState || 0
+  node.threshold = obj.threshold || 1
+  return node
+}
+
 module.exports = Node

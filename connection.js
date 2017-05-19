@@ -29,4 +29,13 @@ Connection.prototype.toSelf = function(){
   return this.fromNode == this.toNode
 }
 
+Connection.prototype.toObj = function(){
+  return { fromNode: this.fromNode.name, toNode: this.toNode.name, strength: this.strength }
+}
+
+Connection.fromObj = function(obj){
+  connection = new Connection(obj.fromNode, obj.toNode, obj.Strength)
+  return connection
+}
+
 module.exports = Connection
