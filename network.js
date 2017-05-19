@@ -5,30 +5,22 @@ function Network (){
   this.nodes = new Set();
 }
 
+// Basic
+
 Network.prototype.include = function(node, name){
   this.nodes.add(node)
   node.name || (node.name = "#" + this.nodes.size++)
 };
 
-Network.prototype.connectedNodes = function (thisNode) {
-  var connectedNodes = [];
-  for (otherNode of this.nodes){
-    if (thisNode.pointTo(otherNode)){ connectedNodes.push(otherNode); }
-  }
-  return connectedNodes;
-};
+// Network.prototype.connectedNodes = function (thisNode) {
+//   var connectedNodes = [];
+//   for (otherNode of this.nodes){
+//     if (thisNode.pointTo(otherNode)){ connectedNodes.push(otherNode); }
+//   }
+//   return connectedNodes;
+// };
 
-Network.prototype.callOnNodes = function(func){
-  for (node of this.nodes){
-    func.call(node)
-  }
-}
-
-Network.prototype.callWithNodes = function(func){
-  for (node of this.nodes){
-    func.call(null, node)
-  }
-}
+// Updating
 
 Network.prototype.updateAll = function(){
   this.callOnNodes(Node.prototype.update)
@@ -46,6 +38,23 @@ Network.prototype.updateState = function(){
   this.updateAll()
   this.rememberAll()
 }
+
+
+// Utility
+
+Network.prototype.callOnNodes = function(func){
+  for (node of this.nodes){
+    func.call(node)
+  }
+}
+
+Network.prototype.callWithNodes = function(func){
+  for (node of this.nodes){
+    func.call(null, node)
+  }
+}
+
+// Saving
 
 Network.prototype.toObj = function(){
   const nodesList = [];
