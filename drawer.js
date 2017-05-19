@@ -1,3 +1,5 @@
+// Manipulates canvas context
+
 Drawer = {}
 
 Drawer.drawNode = function (canvas, node){

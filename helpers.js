@@ -1,3 +1,5 @@
+// Monkey patches feature which should really be standard.
+
 NodeList.prototype[Symbol.iterator] = function() {
   var caller = this;
   return {

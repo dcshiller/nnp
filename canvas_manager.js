@@ -1,3 +1,5 @@
+// Organizes deployment of drawer methods
+
 var Drawer = require('./drawer.js');
 
 var CanvasManager = {

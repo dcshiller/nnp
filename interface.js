@@ -1,3 +1,5 @@
+// Handles click events
+
 var Node = require('./node.js')
 var Network = require('./network.js')
 var Canvas;
@@ -125,12 +127,18 @@ function assignEditModeHandlers(){
   };
 }
 
+function saveNetwork(){
+  const blob = new Blob(network.toJSON(), {type: "text/plain;charset=utf-8"});
+  saveAs(blob, "network.txt");
+}
+
 function assignAuxiliaryButtonHandlers(){
   document.querySelector("#clear_button").addEventListener("click", function(){network.reset(); Canvas.clearStates(); Canvas.redraw();})
   document.querySelector("#play_button").addEventListener("click", handlePlay)
   document.querySelector("#advance_button").addEventListener("click", Canvas.update);
   document.querySelector("#raise_threshold").addEventListener("click", function(){raiseThreshold(); Canvas.focusNode();})
   document.querySelector("#lower_threshold").addEventListener("click", function(){lowerThreshold(); Canvas.focusNode();})
+  document.querySelector("#save").addEventListener("click", saveNetwork)
 }
 
 module.exports = {
