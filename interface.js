@@ -128,7 +128,8 @@ function assignEditModeHandlers(){
 }
 
 function saveNetwork(){
-  const blob = new Blob(network.toJSON(), {type: "text/plain;charset=utf-8"});
+  console.log(network.toJSON())
+  const blob = new Blob([network.toJSON()], {type: "text/plain;charset=utf-8"});
   saveAs(blob, "network.txt");
 }
 
@@ -138,7 +139,7 @@ function assignAuxiliaryButtonHandlers(){
   document.querySelector("#advance_button").addEventListener("click", Canvas.update);
   document.querySelector("#raise_threshold").addEventListener("click", function(){raiseThreshold(); Canvas.focusNode();})
   document.querySelector("#lower_threshold").addEventListener("click", function(){lowerThreshold(); Canvas.focusNode();})
-  document.querySelector("#save").addEventListener("click", saveNetwork)
+  document.querySelector("#save_button").addEventListener("click", saveNetwork)
 }
 
 module.exports = {
