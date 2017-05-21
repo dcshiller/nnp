@@ -64,7 +64,7 @@ function handlePlaceMouseup(e){
     focusOnSelection(e)
   }
   else {
-    node = new Node(e.offsetX, e.offsetY, "charlie");
+    node = new Node(e.offsetX, e.offsetY);
     window.focusedNode = node
     network.include(node);
     Canvas.focusNode();
@@ -84,7 +84,7 @@ function handleToggleMouseup(e){
 function handleDeleteMouseup(e){
   node = getNode(e.offsetX,e.offsetY)
   if (!node) { return }
-  network.nodes.splice(network.nodes.indexOf(node),1)
+  network.nodes.delete(node)
   for (let possibleConnection of network.nodes){
     if(possibleConnection.pointsTo(node)){ 
       possibleConnection.removeConnectionsWith(node)
@@ -105,32 +105,56 @@ function handlePlay(){
   if (window.interval){
     clearInterval(window.interval);
     window.interval = undefined;
-    document.querySelector('#play_button').innerHTML = "Play"
+    document.querySelector('#play_button').innerHTML = '<i class="fa fa-play" aria-hidden="true"></i>'
   }
   else {
-    document.querySelector('#play_button').innerHTML = "Stop"
+    document.querySelector('#play_button').innerHTML = '<i class="fa fa-stop" aria-hidden="true"></i>'
     window.interval = setInterval(Canvas.update.bind(null), 1000)
   }
 }
 
+function handleNavUp(){
+  Canvas.navUp();
+}
+function handleNavDown(){
+  Canvas.navDown();
+}
+function handleNavLeft(){
+  Canvas.navLeft();
+}
+function handleNavRight(){
+  Canvas.navRight();
+}
+
 function selectNewModeHandler(e) {
-    for (ele of document.querySelectorAll('li')){
-      ele.classList = ele.classList.value.replace("selected", "")
+    for (liElement of document.querySelectorAll('#action_menu li')){
+      liElement.classList = liElement.classList.value.replace("selected", "")
     }
     e.target.classList += 'selected';
+    document.querySelector('body').classList = e.target.getAttribute('data-mode')
     window.editMode = e.target.getAttribute('data-mode')
 }
 
 function assignEditModeHandlers(){
-  for ( liElement of document.querySelectorAll('li')) {
+  for ( liElement of document.querySelectorAll('#action_menu li')) {
     liElement.addEventListener("click", selectNewModeHandler)
   };
 }
 
 function saveNetwork(){
-  console.log(network.toJSON())
   const blob = new Blob([network.toJSON()], {type: "text/plain;charset=utf-8"});
   saveAs(blob, "network.txt");
+}
+
+function loadFile(){
+  let file = document.querySelector("input").files[0];
+  let reader = new FileReader();
+  reader.onload = function(e) {
+    const jsonString = reader.result;
+    network = Network.fromJSON(jsonString);
+    Canvas.redraw();
+  };
+  reader.readAsText(file);
 }
 
 function assignAuxiliaryButtonHandlers(){
@@ -139,7 +163,13 @@ function assignAuxiliaryButtonHandlers(){
   document.querySelector("#advance_button").addEventListener("click", Canvas.update);
   document.querySelector("#raise_threshold").addEventListener("click", function(){raiseThreshold(); Canvas.focusNode();})
   document.querySelector("#lower_threshold").addEventListener("click", function(){lowerThreshold(); Canvas.focusNode();})
-  document.querySelector("#save_button").addEventListener("click", saveNetwork)
+  document.querySelector("#save_button").addEventListener("click", saveNetwork);
+  document.querySelector("#load_button").addEventListener("click", function(){document.querySelector("#upload_file").click()});
+  document.querySelector("#upload_file").addEventListener("change", loadFile);
+  document.querySelector("#up_button").addEventListener("click", handleNavUp);
+  document.querySelector("#down_button").addEventListener("click", handleNavDown);
+  document.querySelector("#left_button").addEventListener("click", handleNavLeft);
+  document.querySelector("#right_button").addEventListener("click", handleNavRight);
 }
 
 module.exports = {

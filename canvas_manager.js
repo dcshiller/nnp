@@ -5,7 +5,24 @@ var Drawer = require('./drawer.js');
 var CanvasManager = {
   stateCanvas: null,
   nodeCanvas: null,
-  selectionCanvas: null
+  selectionCanvas: null,
+}
+
+CanvasManager.navUp = function(){
+  Drawer.changeOffset(0,20)
+  CanvasManager.redraw();
+}
+CanvasManager.navDown = function(){
+  Drawer.changeOffset(0,-20)
+  CanvasManager.redraw();
+}
+CanvasManager.navLeft = function(){
+  Drawer.changeOffset(20,0)
+  CanvasManager.redraw();
+}
+CanvasManager.navRight = function(){
+  Drawer.changeOffset(-20,0)
+  CanvasManager.redraw();
 }
 
 CanvasManager.create = function(id){
@@ -57,7 +74,7 @@ CanvasManager.draw = function(){
 var highlightSelection = function(){
   clearSelectionCanvas();
   if(window.focusedNode){
-    Drawer.highlight(window.focusedNode, CanvasManager.selectionCanvas)
+    Drawer.highlight(CanvasManager.selectionCanvas, window.focusedNode)
   }
 }
 

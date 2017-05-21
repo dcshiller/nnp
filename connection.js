@@ -34,7 +34,7 @@ Connection.prototype.toObj = function(){
 }
 
 Connection.fromObj = function(obj){
-  connection = new Connection(obj.fromNode, obj.toNode, obj.Strength)
+  connection = new Connection(obj.fromNode, obj.toNode, obj.strength)
   return connection
 }
 

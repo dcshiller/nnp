@@ -4,6 +4,8 @@
     <meta charset="utf-8">
     <title></title>
     <link rel="stylesheet" href="master.css">
+    <link rel="stylesheet" href="fa/css/font-awesome.min.css">
+
     <script src="bundle.js" charset="utf-8"></script>
     <script src="helpers.js" charset="utf-8"></script>
   </head>
@@ -17,10 +19,17 @@
       <li id="clear_button" data-mode="clear">Clear</li>
     </ul>
     <ul id="play_menu">
-      <li id="play_button" data-mode="play">Play</li>
-      <li id="advance_button" data-mode="advance">Advance</li>
-      <li id="save_button" data-mode="save">Save</li>
+      <li id="play_button" data-mode="play"><i class="fa fa-play" aria-hidden="true"></i></li>
+      <li id="advance_button" data-mode="advance"><i class="fa fa-step-forward" aria-hidden="true"></i></li>
     </ul>
+    <div id="direction_menu">
+      <div class="relative">
+        <div id="up_button" class="up_arrow"></div>
+        <div id="down_button" class="down_arrow"></div>
+        <div id="left_button" class="left_arrow"></div>
+        <div id="right_button" class="right_arrow"></div>
+      </div>
+    </div>
     <div class="focused_node">
       <h1>Node in Focus</h1>
       <hr>
@@ -61,5 +70,12 @@
         </tr>
       </table>
     </div>
+    <footer>
+      <ul>
+        <button id="save_button" data-mode="save"><i class="fa fa-floppy-o" aria-hidden="true"></i></button>
+        <button id="load_button" name="button"><i class="fa fa-upload" aria-hidden="true"></i></button>
+        <input type="file" id="upload_file" style="display: none;" name="" value=""></input>
+      </ul>
+    </footer>
   </body>
 </html>

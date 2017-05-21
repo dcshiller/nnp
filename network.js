@@ -31,7 +31,7 @@ Network.prototype.rememberAll = function(){
 }
 
 Network.prototype.reset = function(){
-  this.nodes = []
+  this.nodes = new Set();
 }
 
 Network.prototype.updateState = function(){

@@ -9,6 +9,14 @@ canvas {
   border: 1px solid black;
 }
 
+body.delete canvas {
+  cursor: crosshair;
+}
+
+body.place canvas {
+  cursor: 
+}
+
 #network {
   z-index: 2
 }
@@ -80,14 +88,33 @@ table {
   padding: 5px;
   width: 100%
 }
+
+td {
+  max-height: 100px;
+  overflow: hidden;
+}
 .connection_row {
   background: rgba(10,10,10,.2)
 }
 
 .focused_node * {
   text-align: left;
-  margin-top: 0px
-  margin-bottom: 0px
+  margin-top: 0px;
+  margin-bottom: 0px;
+  max-height: 80px;
+  overflow: scroll;
+}
+
+ul::-webkit-scrollbar {
+  -webkit-appearance: none;
+  background-color: none;
+  width: 7px;
+}
+
+ul::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  background-color: rgba(0, 0, 0, .5);
+  -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, .5);
 }
 
 #focused_node {
@@ -106,4 +133,67 @@ table {
 
 .t-center {
   text-align: center !important
+}
+
+#direction_menu {
+  z-index: 3;
+  position: fixed;
+  top: 50px;
+  left: 50px;
+}
+
+#direction_menu .relative *  {
+  z-index: 3;
+  height: 0;
+  width: 0;
+  position: relative;
+}
+
+#direction_menu .relative .up_arrow {
+  top: 0px;
+  left: 40px;
+}
+
+#direction_menu .relative .down_arrow {
+  top: 75px;
+  left: 40px;
+}
+
+#direction_menu .relative .left_arrow {
+  top: -21px;
+  left: 0px;
+}
+
+#direction_menu .relative .right_arrow {
+  top: -81px;
+  left: 110px;
+}
+
+.up_arrow {
+  border-left: 30px solid transparent;
+  border-right: 30px solid transparent;
+  border-bottom: 30px solid black;
+}
+
+.down_arrow {
+  border-left: 30px solid transparent;
+  border-right: 30px solid transparent;
+  border-top: 30px solid black;
+}
+
+.right_arrow {
+  border-top: 30px solid transparent;
+  border-bottom: 30px solid transparent;
+  border-left: 30px solid black;
+}
+
+.left_arrow {
+  border-top: 30px solid transparent;
+  border-bottom: 30px solid transparent;
+  border-right: 30px solid black;
+}
+
+footer {
+  position: fixed;
+  bottom: 0;
 }
