@@ -3,6 +3,8 @@
 var Node = require('./node.js')
 var Network = require('./network.js')
 var Canvas;
+var offset;
+var reset;
 
 function connect(node, e){
   otherNode = getNode(e.offsetX,e.offsetY)
@@ -38,7 +40,7 @@ function lowerThreshold(){
 
 function getNode(x,y){
   for (node of network.nodes){
-    if (Math.sqrt((x - node.x) ** 2 + (y - node.y) ** 2) < 20) {
+    if (Math.sqrt((x - offset(node).x) ** 2 + (y - offset(node).y) ** 2) < 20) {
       return node
     }
   }
@@ -64,7 +66,8 @@ function handlePlaceMouseup(e){
     focusOnSelection(e)
   }
   else {
-    node = new Node(e.offsetX, e.offsetY);
+    newCoords = reset({ x: e.offsetX, y: e.offsetY})
+    node = new Node(newCoords.x, newCoords.y);
     window.focusedNode = node
     network.include(node);
     Canvas.focusNode();
@@ -173,7 +176,7 @@ function assignAuxiliaryButtonHandlers(){
 }
 
 module.exports = {
-  initialize: function(canvasManager){ Canvas = canvasManager},
+  initialize: function(canvasManager){ Canvas = canvasManager; offset = Canvas.offsetter.offset; reset = Canvas.offsetter.reset;},
   assignButtonHandlers: function (){
     assignEditModeHandlers();
     assignAuxiliaryButtonHandlers();

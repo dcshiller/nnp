@@ -1,27 +1,28 @@
 // Organizes deployment of drawer methods
 
-var Drawer = require('./drawer.js');
+const Drawer = require('./drawer.js');
 
-var CanvasManager = {
+const CanvasManager = {
   stateCanvas: null,
   nodeCanvas: null,
   selectionCanvas: null,
+  offsetter: Drawer.offsetter
 }
 
 CanvasManager.navUp = function(){
-  Drawer.changeOffset(0,20)
+  CanvasManager.offsetter.changeOffset(0,20)
   CanvasManager.redraw();
 }
 CanvasManager.navDown = function(){
-  Drawer.changeOffset(0,-20)
+  CanvasManager.offsetter.changeOffset(0,-20)
   CanvasManager.redraw();
 }
 CanvasManager.navLeft = function(){
-  Drawer.changeOffset(20,0)
+  CanvasManager.offsetter.changeOffset(20,0)
   CanvasManager.redraw();
 }
 CanvasManager.navRight = function(){
-  Drawer.changeOffset(-20,0)
+  CanvasManager.offsetter.changeOffset(-20,0)
   CanvasManager.redraw();
 }
 

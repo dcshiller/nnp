@@ -1,6 +1,6 @@
 // Manipulates canvas context
 
-Drawer = { offset: {x: 0, y: 0} }
+const Drawer = { offsetter: require('./offsetter.js') }
 
 Drawer.drawNode = function (canvas, node){
   ctx = canvas.getContext('2d');
@@ -10,19 +10,7 @@ Drawer.drawNode = function (canvas, node){
   }
 }
 
-Drawer.changeOffset = function(x, y){
-  Drawer.offset = {
-                    x: (Drawer.offset.x + x), 
-                    y: (Drawer.offset.y + y) 
-                  };
-}
-
-function offset(node){
-  return {
-           x: (node.x + Drawer.offset.x),
-           y: (node.y + Drawer.offset.y)
-         }
-}
+const offset = Drawer.offsetter.offset;
 
 function drawNodeCircle(ctx, node){
   ctx.beginPath()
