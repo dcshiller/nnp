@@ -18,8 +18,8 @@ function connect(node, e){
 
 function place(node, e){
   if (e.target.tagName == "CANVAS"){
-    node.x = e.offsetX
-    node.y = e.offsetY
+    node.x = eToAbsCoords(e).x
+    node.y = eToAbsCoords(e).y
     Canvas.redraw()
     Canvas.reColor()
     document.removeEventListener(e.type, window.mouseUpHandler)
@@ -61,12 +61,16 @@ function handleMoveMouseup(e){
   document.addEventListener("mouseup", window.mouseUpHandler)
 }
 
+function eToAbsCoords(e){
+  return reset({ x: e.offsetX, y: e.offsetY})
+}
+
 function handlePlaceMouseup(e){
   if (getNode(e.offsetX, e.offsetY)){
     focusOnSelection(e)
   }
   else {
-    newCoords = reset({ x: e.offsetX, y: e.offsetY})
+    newCoords = eToAbsCoords(e)
     node = new Node(newCoords.x, newCoords.y);
     window.focusedNode = node
     network.include(node);

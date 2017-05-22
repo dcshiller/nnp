@@ -10,7 +10,7 @@ canvas {
 }
 
 body.delete canvas {
-  cursor: crosshair;
+  cursor: url('images/cross.png'), default;
 }
 
 body.place canvas {
