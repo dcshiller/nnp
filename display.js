@@ -11,7 +11,5 @@ document.addEventListener("DOMContentLoaded", function(){
   Canvas.buildSelectionCanvas()
   Canvas.update()
   Interface.initialize(Canvas)
-  Interface.assignButtonHandlers()
-  Interface.assignMouseHandlers()
 })
 

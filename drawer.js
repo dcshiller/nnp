@@ -16,17 +16,19 @@ function drawNodeCircle(ctx, node){
   ctx.beginPath()
   ctx.fillStyle = "black"
   ctx.lineWidth = node.threshold * 3 - 2
-  ctx.arc(offset(node).x,offset(node).y,20,0,2 * Math.PI)
+  let coords = offset(node);
+  ctx.arc(coords.x, coords.y, 20, 0, 2 * Math.PI)
   ctx.stroke()
   ctx.closePath()
 }
 
 function drawSelfConnection(ctx, connection){
+  let toCoords = offset(connection.toNode)
   let connectionMagnitude = connection.strength > 0 ? connection.strength : (-1 * connection.strength)
-  let arcStartX = offset(connection.toNode).x + radius(connection.toNode) * Math.cos(Math.PI/(6))
-  let arcStartY = offset(connection.toNode).y + radius(connection.toNode) * Math.cos(Math.PI/(6))
-  let arcEndX = offset(connection.toNode).x - 2 + radius(connection.toNode) * Math.sin(Math.PI/(6))
-  let arcEndY = offset(connection.toNode).y + radius(connection.toNode) * Math.cos(Math.PI/(6))
+  let arcStartX = toCoords.x + radius(connection.toNode) * Math.cos(Math.PI/(6))
+  let arcStartY = toCoords.y + radius(connection.toNode) * Math.cos(Math.PI/(6))
+  let arcEndX = toCoords.x - 2 + radius(connection.toNode) * Math.sin(Math.PI/(6))
+  let arcEndY = toCoords.y + radius(connection.toNode) * Math.cos(Math.PI/(6))
   ctx.arc(arcStartX, arcStartY, 10, 1.5 * Math.PI, Math.PI)
   drawArrowHead(arcEndX, arcEndY, .4, 6)
   // ctx.lineTo(arcEndX, arcEndY)
@@ -46,13 +48,15 @@ function radius(node){
 }
 
 function drawOtherConnection(ctx, connection){
+  let toCoords = offset(connection.toNode);
+  let fromCoords = offset(connection.fromNode);
   let connectionMagnitude = connection.strength > 0 ? connection.strength : (-1 * connection.strength)
-  let angle = getAngle(offset(connection.fromNode).x, offset(connection.fromNode).y, offset(connection.toNode).x, offset(connection.toNode).y)
-  let length = getLength(offset(connection.fromNode).x, offset(connection.fromNode).y, offset(connection.toNode).x, offset(connection.toNode).y)
-  let xterminas = offset(connection.toNode).x + (radius(connection.toNode)) * Math.cos(angle)
-  let yterminas = offset(connection.toNode).y + (radius(connection.toNode)) * Math.sin(angle)
-  let xinitiatus = offset(connection.toNode).x + ((length - radius(connection.fromNode)) * Math.cos(angle))
-  let yinitiatus = offset(connection.toNode).y + ((length - radius(connection.fromNode)) * Math.sin(angle))
+  let angle = getAngle(fromCoords.x, fromCoords.y, toCoords.x, toCoords.y)
+  let length = getLength(fromCoords.x, fromCoords.y, toCoords.x, toCoords.y)
+  let xterminas = toCoords.x + (radius(connection.toNode)) * Math.cos(angle)
+  let yterminas = toCoords.y + (radius(connection.toNode)) * Math.sin(angle)
+  let xinitiatus = toCoords.x + ((length - radius(connection.fromNode)) * Math.cos(angle))
+  let yinitiatus = toCoords.y + ((length - radius(connection.fromNode)) * Math.sin(angle))
   drawArrowFrom(xinitiatus,yinitiatus,xterminas,yterminas,connectionMagnitude)
 }
 

@@ -1,7 +1,7 @@
 var Connection = require('./connection.js')
 
 function Node(x,y,name){
-  this.connections = { to: [], from: [] };
+  this.connections = { to: new Set(), from: new Set() };
   this.state = 0
   this.lastState = 0
   this.threshold = 1
@@ -40,11 +40,11 @@ Node.prototype.pointFrom = function(otherNode){
 }
 
 Node.prototype.addToConnection = function(connection){
-  this.connections.to.push(connection)
+  this.connections.to.add(connection)
 }
 
 Node.prototype.addFromConnection = function(connection){
-  this.connections.from.push(connection)
+  this.connections.from.add(connection)
 }
 
 Node.prototype.pointTo = function(otherNode){
@@ -74,18 +74,8 @@ Node.prototype.removeConnectionsWith = function(otherNode){
 }
 
 Node.prototype.removeConnection = function(connection){
-  var newConnections = { to: [], from: [] };
-  for (let toConnection of this.connections.to){
-    if (connection != toConnection){
-      newConnections.to.push(toConnection);
-    }
-  }
-  for (let fromConnection of this.connections.from){
-    if (connection != fromConnection){
-      newConnections.from.push(fromConnection);
-    }
-  }
-  this.connections = newConnections;
+    this.connections.to.remove(connection);
+    this.connections.from.remove(connection);
 }
 
 Node.prototype.removeAllConnections = function(){
