@@ -42,6 +42,7 @@ function place(node, e){
     Canvas.redraw()
     Canvas.reColor()
     document.removeEventListener(e.type, window.mouseUpHandler)
+    document.removeEventListener("mousemove", window.mouseMoveHandler)
   }
 }
 
@@ -51,6 +52,16 @@ function handleMoveMouseup(e){
   if (!node) { return }
   window.mouseUpHandler = place.bind(this, node)
   document.addEventListener("mouseup", window.mouseUpHandler)
+}
+
+function shadowMouse(e){
+  Canvas.shadowNode(e.offsetX, e.offsetY)
+}
+
+function handleMoveMousemove(e){
+  window.mouseMoveHandler = shadowMouse
+  document.addEventListener("mousemove", window.mouseMoveHandler)
+
 }
 
 function handlePlaceMouseup(e){
@@ -113,10 +124,11 @@ function handleConnectMouseup(e){
 
 function assignMouseHandlers(){
   document.addEventListener("mousedown", function(e){
-    if (e.target.tagName == "CANVAS") {
+    if (e.target.tagName == "CANVAS" && window.editMode) {
       switch (window.editMode) {
         case "move":
-          handleMoveMouseup(e); break;
+          handleMoveMouseup(e);
+          handleMoveMousemove(e); break;
         case "place":
           handlePlaceMouseup(e); break;
         case "toggle":

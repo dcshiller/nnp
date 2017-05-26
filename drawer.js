@@ -12,6 +12,14 @@ Drawer.drawNode = function (canvas, node){
 
 const offset = Drawer.offsetter.offset;
 
+Drawer.drawNodeShadow = function(canvas, x, y){
+  ctx = canvas.getContext('2d');
+  ctx.beginPath();
+  ctx.arc(x, y, 10, 0, 2 * Math.PI)
+  ctx.stroke();
+  ctx.closePath();
+}
+
 function drawNodeCircle(ctx, node){
   ctx.beginPath()
   ctx.fillStyle = "black"
@@ -100,7 +108,7 @@ function drawArrowFrom(xinitiatus,yinitiatus,xterminas,yterminas,width){
   ctx.strokeStyle = 'black'
 }
 
-Drawer.highlight = function(node){
+Drawer.highlight = function(canvas, node){
   ctx = canvas.getContext('2d');
   ctx.beginPath();
   ctx.strokeStyle = "blue"

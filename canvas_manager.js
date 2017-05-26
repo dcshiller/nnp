@@ -95,6 +95,11 @@ CanvasManager.reColor = function(){
   network.callWithNodes( Drawer.fillInNode.bind(null, CanvasManager.stateCanvas) )
 }
 
+CanvasManager.shadowNode = function(x,y){
+  highlightSelection();
+  Drawer.drawNodeShadow(CanvasManager.selectionCanvas,x,y)
+}
+
 CanvasManager.update = function(){
   network.updateAll()
   CanvasManager.reColor()
