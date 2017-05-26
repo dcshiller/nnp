@@ -1,4 +1,6 @@
 var Canvas;
+const Network = require('../network')
+
 
 function saveNetwork(){
   const blob = new Blob([network.toJSON()], {type: "text/plain;charset=utf-8"});

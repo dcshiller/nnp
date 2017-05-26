@@ -7,10 +7,14 @@ const NavigationController = {
     const handleNavDown = Canvas.navDown;
     const handleNavLeft = Canvas.navLeft;
     const handleNavRight = Canvas.navRight;
+    const handleZoomIn = Canvas.zoomIn;
+    const handleZoomOut = Canvas.zoomOut;
     document.querySelector("#up_button").addEventListener("click", handleNavUp);
     document.querySelector("#down_button").addEventListener("click", handleNavDown);
     document.querySelector("#left_button").addEventListener("click", handleNavLeft);
     document.querySelector("#right_button").addEventListener("click", handleNavRight);
+    document.querySelector("#zoom_in_button").addEventListener("click", handleZoomIn);
+    document.querySelector("#zoom_out_button").addEventListener("click", handleZoomOut);
   }
 }
 

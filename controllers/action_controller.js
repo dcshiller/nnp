@@ -3,13 +3,15 @@ var Canvas;
 var offset;
 var reset;
 
-function inNode(x,y,node) {
-  if (Math.sqrt((x - offset(node).x) ** 2 + (y - offset(node).y) ** 2) < 20) { return true }
+function inNode(absCoords,node) {
+  const xDiff =  absCoords.x - node.x;
+  const yDiff =  absCoords.y - node.y;
+  if (Math.sqrt((xDiff ** 2) + (yDiff ** 2)) < 20) { return true }
 }
 
-function getNode(x,y){
+function getNode(absCoords){
   for (node of network.nodes){
-    if ( inNode(x,y,node) ) { return node }
+    if ( inNode(absCoords,node) ) { return node }
   }
 }
 
@@ -17,15 +19,19 @@ function eToAbsCoords(e){
   return reset({ x: e.offsetX, y: e.offsetY})
 }
 
+function absCoordsToAdjCoords(coords){
+  return offset({ x: coords.x, y: coords.y})
+}
+
 function focusOnSelection(e){
-  window.focusedNode = getNode(e.offsetX,e.offsetY)
+  window.focusedNode = getNode(eToAbsCoords(e))
   if (window.focusedNode) {
     Canvas.focusNode(window.focusedNode)
   }
 }
 
 function connect(node, e){
-  otherNode = getNode(e.offsetX,e.offsetY)
+  otherNode = getNode(eToAbsCoords(e))
   focusOnSelection(e)
   if (otherNode && !node.pointsTo(otherNode)){
     node.pointTo(otherNode)
@@ -47,7 +53,7 @@ function place(node, e){
 }
 
 function handleMoveMouseup(e){
-  node = getNode(e.offsetX,e.offsetY)
+  node = getNode(eToAbsCoords(e))
   focusOnSelection(e)
   if (!node) { return }
   window.mouseUpHandler = place.bind(this, node)
@@ -55,7 +61,8 @@ function handleMoveMouseup(e){
 }
 
 function shadowMouse(e){
-  Canvas.shadowNode(e.offsetX, e.offsetY)
+  const coords = eToAbsCoords(e)
+  Canvas.shadowNode(coords.x, coords.y)
 }
 
 function handleMoveMousemove(e){
@@ -65,7 +72,7 @@ function handleMoveMousemove(e){
 }
 
 function handlePlaceMouseup(e){
-  if (getNode(e.offsetX, e.offsetY)){
+  if (getNode(eToAbsCoords(e))){
     focusOnSelection(e)
   }
   else {
@@ -79,7 +86,7 @@ function handlePlaceMouseup(e){
 }
 
 function handleToggleMouseup(e){
-  node = getNode(e.offsetX,e.offsetY)
+  node = getNode(eToAbsCoords(e))
   focusOnSelection(e)
   if (!node) { return }
   node.lastState ? node.off() : node.on()
@@ -88,7 +95,7 @@ function handleToggleMouseup(e){
 }
 
 function handleDeleteMouseup(e){
-  node = getNode(e.offsetX,e.offsetY)
+  node = getNode(eToAbsCoords(e))
   if (!node) { return }
   network.nodes.delete(node)
   for (let possibleConnection of network.nodes){
@@ -115,7 +122,7 @@ function assignEditModeHandlers(){
 }
 
 function handleConnectMouseup(e){
-  node = getNode(e.offsetX,e.offsetY)
+  node = getNode(eToAbsCoords(e))
   if (!node) { return }
   focusOnSelection(e)
   window.mouseUpHandler = connect.bind(this, node)

@@ -169,6 +169,20 @@ ul::-webkit-scrollbar-thumb {
   left: 110px;
 }
 
+#direction_menu .relative #zoom_in_button {
+  top: -130px;
+  left: 50px;
+  width: 20px;
+  height: 50px;
+}
+
+#direction_menu .relative #zoom_out_button {
+  top: -130px;
+  left: 50px;
+  width: 20px;
+  height: 50px;
+}
+
 .up_arrow {
   border-left: 30px solid transparent;
   border-right: 30px solid transparent;

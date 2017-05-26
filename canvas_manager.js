@@ -10,28 +10,38 @@ const CanvasManager = {
 }
 
 CanvasManager.navUp = function(){
-  CanvasManager.offsetter.changeOffset(0,20)
+  CanvasManager.offsetter.changeOffset(0,20);
   CanvasManager.redraw();
 }
 CanvasManager.navDown = function(){
-  CanvasManager.offsetter.changeOffset(0,-20)
+  CanvasManager.offsetter.changeOffset(0,-20);
   CanvasManager.redraw();
 }
 CanvasManager.navLeft = function(){
-  CanvasManager.offsetter.changeOffset(20,0)
+  CanvasManager.offsetter.changeOffset(20,0);
   CanvasManager.redraw();
 }
 CanvasManager.navRight = function(){
-  CanvasManager.offsetter.changeOffset(-20,0)
+  CanvasManager.offsetter.changeOffset(-20,0);
+  CanvasManager.redraw();
+}
+
+CanvasManager.zoomIn = function(){
+  CanvasManager.offsetter.changeProportion(0.1);
+  CanvasManager.redraw();
+}
+
+CanvasManager.zoomOut = function(){
+  CanvasManager.offsetter.changeProportion(-0.1);
   CanvasManager.redraw();
 }
 
 CanvasManager.create = function(id){
-  canvas = document.createElement("canvas")
+  canvas = document.createElement("canvas");
   canvas.setAttribute('width', '1000');
   canvas.setAttribute('height', '500');
   if (id) { canvas.setAttribute("id", id); }
-  document.querySelector('body').appendChild(canvas)
+  document.querySelector('body').appendChild(canvas);
   return canvas
 }
 

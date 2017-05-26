@@ -1,6 +1,8 @@
 // Manipulates canvas context
 
-const Drawer = { offsetter: require('./offsetter.js') }
+const Drawer = { offsetter: require('./offsetter.js')}
+
+function aj(num){ return (Drawer.offsetter.proportion * num) }
 
 Drawer.drawNode = function (canvas, node){
   ctx = canvas.getContext('2d');
@@ -14,8 +16,9 @@ const offset = Drawer.offsetter.offset;
 
 Drawer.drawNodeShadow = function(canvas, x, y){
   ctx = canvas.getContext('2d');
+  const coords = Drawer.offsetter.offset({x: x, y: y})
   ctx.beginPath();
-  ctx.arc(x, y, 10, 0, 2 * Math.PI)
+  ctx.arc(coords.x, coords.y, aj(10), 0, 2 * Math.PI)
   ctx.stroke();
   ctx.closePath();
 }
@@ -25,20 +28,20 @@ function drawNodeCircle(ctx, node){
   ctx.fillStyle = "black"
   ctx.lineWidth = node.threshold * 3 - 2
   let coords = offset(node);
-  ctx.arc(coords.x, coords.y, 20, 0, 2 * Math.PI)
+  ctx.arc(coords.x, coords.y, aj(20), 0, 2 * Math.PI)
   ctx.stroke()
   ctx.closePath()
 }
 
 function drawSelfConnection(ctx, connection){
   let toCoords = offset(connection.toNode)
-  let connectionMagnitude = connection.strength > 0 ? connection.strength : (-1 * connection.strength)
+  let connectionMagnitude = connection.strength > 0 ? aj(connection.strength) : aj(-1 * connection.strength)
   let arcStartX = toCoords.x + radius(connection.toNode) * Math.cos(Math.PI/(6))
   let arcStartY = toCoords.y + radius(connection.toNode) * Math.cos(Math.PI/(6))
   let arcEndX = toCoords.x - 2 + radius(connection.toNode) * Math.sin(Math.PI/(6))
   let arcEndY = toCoords.y + radius(connection.toNode) * Math.cos(Math.PI/(6))
-  ctx.arc(arcStartX, arcStartY, 10, 1.5 * Math.PI, Math.PI)
-  drawArrowHead(arcEndX, arcEndY, .4, 6)
+  ctx.arc(arcStartX, arcStartY, aj(10), 1.5 * Math.PI, Math.PI)
+  drawArrowHead(arcEndX, arcEndY, .4, aj(6))
   // ctx.lineTo(arcEndX, arcEndY)
   ctx.stroke()
 }
@@ -48,11 +51,10 @@ function drawArrowHead(startX, startY, angle, length){
   ctx.lineTo(startX + length * Math.cos((angle + .2) * Math.PI), startY + length * Math.sin((angle + .2) * Math.PI));
   ctx.moveTo(startX, startY);
   ctx.lineTo(startX + length * Math.cos((angle - .2) * Math.PI), startY + length * Math.sin((angle - .2) *  Math.PI));
-
 }
 
 function radius(node){
-  return (20 + (3 * node.threshold)/2)
+  return aj(20 + (3 * node.threshold)/2)
 }
 
 function drawOtherConnection(ctx, connection){
@@ -65,7 +67,7 @@ function drawOtherConnection(ctx, connection){
   let yterminas = toCoords.y + (radius(connection.toNode)) * Math.sin(angle)
   let xinitiatus = toCoords.x + ((length - radius(connection.fromNode)) * Math.cos(angle))
   let yinitiatus = toCoords.y + ((length - radius(connection.fromNode)) * Math.sin(angle))
-  drawArrowFrom(xinitiatus,yinitiatus,xterminas,yterminas,connectionMagnitude)
+  drawArrowFrom(xinitiatus,yinitiatus,xterminas,yterminas, aj(connectionMagnitude))
 }
 
 function drawConnection(ctx, connection){
@@ -100,10 +102,7 @@ function drawArrowFrom(xinitiatus,yinitiatus,xterminas,yterminas,width){
   let angle = getAngle(xinitiatus, yinitiatus, xterminas, yterminas)
   ctx.moveTo(xinitiatus,yinitiatus)
   ctx.lineTo(xterminas, yterminas)
-  drawArrowHead(xterminas,yterminas, angle / Math.PI, 3 + 3 * width)
-  // ctx.lineTo(xterminas + (3 + 3 * width) * Math.cos(angle - Math.PI/(5 + width)), yterminas + (3 + 3 * width) * Math.sin(angle - Math.PI/(5 + width)));
-  // ctx.moveTo(xterminas, yterminas);
-  // ctx.lineTo(xterminas + (3 + 3 * width) * Math.cos(angle + Math.PI/(5 + width)), yterminas + (3 + 3 * width) * Math.sin(angle + Math.PI/(5 + width)));
+  drawArrowHead(xterminas,yterminas, angle / Math.PI, aj(3) + 3 * width)
   ctx.stroke()
   ctx.strokeStyle = 'black'
 }
@@ -118,7 +117,7 @@ Drawer.highlight = function(canvas, node){
 }
 
 function fillNode(color){
-  ctx.arc(offset(node).x,offset(node).y,18,0,2 * Math.PI)
+  ctx.arc(offset(node).x,offset(node).y,aj(18),0,2 * Math.PI)
   ctx.fillStyle = color
   ctx.fill()
 }
