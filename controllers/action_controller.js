@@ -11,7 +11,7 @@ function inNode(absCoords,node) {
 
 function getNode(absCoords){
   for (node of network.nodes){
-    if ( inNode(absCoords,node) ) { return node }
+    if ( inNode(absCoords, node) ) { return node }
   }
 }
 
@@ -19,9 +19,9 @@ function eToAbsCoords(e){
   return reset({ x: e.offsetX, y: e.offsetY})
 }
 
-function absCoordsToAdjCoords(coords){
-  return offset({ x: coords.x, y: coords.y})
-}
+// function absCoordsToAdjCoords(coords){
+//   return offset({ x: coords.x, y: coords.y})
+// }
 
 function focusOnSelection(e){
   window.focusedNode = getNode(eToAbsCoords(e))
@@ -38,8 +38,7 @@ function connect(node, e){
     Canvas.redraw()
   }
   document.removeEventListener(e.type, window.mouseUpHandler)
-}
-
+} 
 function place(node, e){
   if (e.target.tagName == "CANVAS"){
     const coords = eToAbsCoords(e);

@@ -19,11 +19,10 @@ Offsetter.changeOffset = function(x, y){
 
 Offsetter.changeProportion = function(diff){
   if (Offsetter.proportion + diff <= .1) { return }
+  const oldProp = Offsetter.proportion
   Offsetter.proportion += diff
-  Offsetter.x += ((1000 / Offsetter.proportion) * ( 1 - (Offsetter.proportion / (Offsetter.proportion + .1)) ) ) / 2
-  Offsetter.y += ((500 / Offsetter.proportion) * ( 1 - (Offsetter.proportion / (Offsetter.proportion + .1)) ) ) / 2
-  // Offsetter.x = (((1000 + Offsetter.x) * Offsetter.proportion) / 2) * 0.1
-  // Offsetter.y = (((500 + Offsetter.y) * Offsetter.proportion) / 2) * 0.1
+  Offsetter.x += (1000 / Offsetter.proportion) * ( 1 - (Offsetter.proportion / oldProp)) / 2
+  Offsetter.y += (500 / Offsetter.proportion) * ( 1 - (Offsetter.proportion / oldProp)) / 2
 }
 
 Offsetter.offset = function(positionable){
@@ -35,8 +34,8 @@ Offsetter.offset = function(positionable){
 
 Offsetter.reset = function(positionable){
   return {
-           x: rj(positionable.x - Offsetter.x),
-           y: rj(positionable.y - Offsetter.y)
+           x: rj(positionable.x) - Offsetter.x,
+           y: rj(positionable.y) - Offsetter.y
          }
 }
 
