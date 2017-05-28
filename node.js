@@ -43,6 +43,19 @@ Node.prototype.addToConnection = function(connection){
   this.connections.to.add(connection)
 }
 
+Node.prototype.allConnectedNodes = function(){
+  const allConn = new Set();
+  for (const connection of this.connections.to){
+    allConn.add(connection.toNode);
+    allConn.add(connection.fromNode);
+  }
+  for (const connection of this.connections.from){
+    allConn.add(connection.toNode);
+    allConn.add(connection.fromNode);
+  }
+  return allConn;
+}
+
 Node.prototype.addFromConnection = function(connection){
   this.connections.from.add(connection)
 }
@@ -74,25 +87,14 @@ Node.prototype.removeConnectionsWith = function(otherNode){
 }
 
 Node.prototype.removeConnection = function(connection){
-    this.connections.to.remove(connection);
-    this.connections.from.remove(connection);
+    this.connections.to.delete(connection);
+    this.connections.from.delete(connection);
 }
 
 Node.prototype.removeAllConnections = function(){
   for (let connection of this.connections.to){ connection.remove() }
   for (let connection of this.connections.from){ connection.remove() }
 }
-
-// Node.prototype.connectionsByName = function(){
-//   var toNames = new Set();
-//   for (let c of this.connections.to) { toNames.add(c.byName) }
-//   var fromNames = new Set();
-//   for (let c of this.connections.to) { fromNames.add(c.byName) }
-//   return {
-//     to: toNames,
-//     from: fromNames
-//   }
-// }
 
 Node.prototype.toObj = function(){
   return {

@@ -6,10 +6,18 @@ function aj(num){ return (Drawer.offsetter.proportion * num) }
 
 Drawer.drawNode = function (canvas, node){
   ctx = canvas.getContext('2d');
-  drawNodeCircle(ctx, node)
+  drawNodeCircle(ctx, node);
   for (let connection of node.connections.to) {
     drawConnection(ctx, connection)
   }
+}
+
+Drawer.drawNodeName = function(canvas, node) {
+  ctx = canvas.getContext('2d');
+  ctx.beginPath();
+  ctx.fillText(node.name, aj(node.x), aj(node.y));
+  ctx.stroke();
+  ctx.closePath();
 }
 
 const offset = Drawer.offsetter.offset;

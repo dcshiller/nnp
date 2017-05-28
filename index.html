@@ -28,49 +28,41 @@
         <div id="down_button" class="down_arrow"></div>
         <div id="left_button" class="left_arrow"></div>
         <div id="right_button" class="right_arrow"></div>
-        <button id="zoom_in_button">+</button>
-        <button id="zoom_out_button">-</button>
+        <div id="zoom_in_button"><i class="fa fa-expand"></i></div>
+        <div id="zoom_out_button"><i class="fa fa-compress"></i></div>
       </div>
     </div>
-    <div class="focused_node">
-      <h1>Node in Focus</h1>
-      <hr>
-      <table>
-        <tr>
-          <td>
-            <h4> Name </h4>
-          </td>
-          <td>
-            <h2 id="node_name">--</h2>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <h4> Threshold </h4>
-          </td>
-          <td>
-            <h2 id="node_threshold">--</h2>
-          </td>
-          <td class="t-center">
+    <div class="focused_node column" style="justify-content: flex-start;">
+      <div class="column">
+        <h1>Node in Focus</h1>
+        <hr>
+        <div class="row">
+          <h4> Name </h4>
+          <h2 id="node_name">--</h2>
+        </div>
+        <div class="row">
+          <h4> Threshold </h4>
+          <div class="">
             <button id="raise_threshold">+</button>
             <button id="lower_threshold">-</button>
-          </td>
-        </tr>
-        <tr class="connection_row" id="connection_to_row">
-          <td colspan='3'>
-            <h3 class="t-center">Afferent Connections</h3>
-            <ul id="afferent_connection_list">
-            </ul>
-          </td>
-        </tr>
-        <tr class="connection_row text-center" id="connection_from_row">
-          <td colspan='3'>
-            <h3 class="t-center">Efferent Connections</h3>
-            <ul id="efferent_connection_list">
-            </ul>
-          </td>
-        </tr>
-      </table>
+          </div>
+          <h2 id="node_threshold">--</h2>
+        </div>
+      </div>
+      <div class="column">
+        <div class="column">
+          <h3 class="t-center">Afferent Connections</h3>
+          <div class="row connection_row" id="connection_to_row">
+            <ul id="afferent_connection_list"></ul>
+          </div>
+        </div>
+        <div class="column">
+          <h3 class="t-center">Efferent Connections</h3>
+          <div class="connection_row text-center" id="connection_from_row">
+            <ul id="efferent_connection_list"> </ul>
+          </div>
+        </div>
+      </div>
     </div>
     <footer>
       <ul>

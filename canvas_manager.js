@@ -86,6 +86,10 @@ var highlightSelection = function(){
   clearSelectionCanvas();
   if(window.focusedNode){
     Drawer.highlight(CanvasManager.selectionCanvas, window.focusedNode)
+    Drawer.drawNodeName(CanvasManager.selectionCanvas, window.focusedNode)
+    for (const node of window.focusedNode.allConnectedNodes()) {
+      Drawer.drawNodeName(CanvasManager.selectionCanvas, node)
+    }
   }
 }
 

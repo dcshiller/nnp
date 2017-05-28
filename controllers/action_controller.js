@@ -1,7 +1,5 @@
-var Node = require('../node.js')
+const Node = require('../node.js')
 var Canvas;
-var offset;
-var reset;
 
 function inNode(absCoords,node) {
   const xDiff =  absCoords.x - node.x;
@@ -13,26 +11,23 @@ function getNode(absCoords){
   for (node of network.nodes){
     if ( inNode(absCoords, node) ) { return node }
   }
+  return null
 }
 
 function eToAbsCoords(e){
-  return reset({ x: e.offsetX, y: e.offsetY})
+  return Canvas.offsetter.reset({ x: e.offsetX, y: e.offsetY})
 }
 
-// function absCoordsToAdjCoords(coords){
-//   return offset({ x: coords.x, y: coords.y})
-// }
-
-function focusOnSelection(e){
-  window.focusedNode = getNode(eToAbsCoords(e))
-  if (window.focusedNode) {
-    Canvas.focusNode(window.focusedNode)
+function focusOnSelection(node){
+  if (node) {
+    window.focusedNode = node;
+    Canvas.focusNode(node);
   }
 }
 
 function connect(node, e){
-  otherNode = getNode(eToAbsCoords(e))
-  focusOnSelection(e)
+  const otherNode = getNode(eToAbsCoords(e))
+  focusOnSelection(otherNode)
   if (otherNode && !node.pointsTo(otherNode)){
     node.pointTo(otherNode)
     Canvas.redraw()
@@ -52,32 +47,33 @@ function place(node, e){
 }
 
 function handleMoveMouseup(e){
-  node = getNode(eToAbsCoords(e))
-  focusOnSelection(e)
+  const node = getNode(eToAbsCoords(e));
+  focusOnSelection(node);
   if (!node) { return }
-  window.mouseUpHandler = place.bind(this, node)
-  document.addEventListener("mouseup", window.mouseUpHandler)
+  window.mouseUpHandler = place.bind(this, node);
+  document.addEventListener("mouseup", window.mouseUpHandler);
 }
 
 function shadowMouse(e){
-  const coords = eToAbsCoords(e)
-  Canvas.shadowNode(coords.x, coords.y)
+  const coords = eToAbsCoords(e);
+  Canvas.shadowNode(coords.x, coords.y);
 }
 
 function handleMoveMousemove(e){
-  window.mouseMoveHandler = shadowMouse
-  document.addEventListener("mousemove", window.mouseMoveHandler)
+  window.mouseMoveHandler = shadowMouse;
+  document.addEventListener("mousemove", window.mouseMoveHandler);
 
 }
 
 function handlePlaceMouseup(e){
-  if (getNode(eToAbsCoords(e))){
-    focusOnSelection(e)
+  const node = getNode(eToAbsCoords(e));
+  if (node) {
+    focusOnSelection(node);
   }
   else {
-    newCoords = eToAbsCoords(e)
-    node = new Node(newCoords.x, newCoords.y);
-    window.focusedNode = node
+    newCoords = eToAbsCoords(e);
+    const node = new Node(newCoords.x, newCoords.y);
+    window.focusedNode = node;
     network.include(node);
     Canvas.focusNode();
     Canvas.redraw();
@@ -85,8 +81,8 @@ function handlePlaceMouseup(e){
 }
 
 function handleToggleMouseup(e){
-  node = getNode(eToAbsCoords(e))
-  focusOnSelection(e)
+  const node = getNode(eToAbsCoords(e))
+  focusOnSelection(node)
   if (!node) { return }
   node.lastState ? node.off() : node.on()
   node.remember()
@@ -96,12 +92,14 @@ function handleToggleMouseup(e){
 function handleDeleteMouseup(e){
   node = getNode(eToAbsCoords(e))
   if (!node) { return }
-  network.nodes.delete(node)
-  for (let possibleConnection of network.nodes){
-    if(possibleConnection.pointsTo(node)){ 
-      possibleConnection.removeConnectionsWith(node)
-    }
-  }
+  else if (node == window.focusedNode) { window.focusedNode = null; Canvas.focusNode();}
+  network.nodes.delete(node);
+  node.removeAllConnections();
+  // for (let possibleConnection of network.nodes){
+  //   if(possibleConnection.pointsTo(node)){ 
+  //     possibleConnection.removeConnectionsWith(node)
+  //   }
+  // }
   Canvas.redraw()
 }
 
@@ -123,7 +121,7 @@ function assignEditModeHandlers(){
 function handleConnectMouseup(e){
   node = getNode(eToAbsCoords(e))
   if (!node) { return }
-  focusOnSelection(e)
+  focusOnSelection(node)
   window.mouseUpHandler = connect.bind(this, node)
   document.addEventListener("mouseup", window.mouseUpHandler)
 }
@@ -151,8 +149,6 @@ function assignMouseHandlers(){
 const ActionController = {
   initialize: function(canvasManager){
     Canvas = canvasManager;
-    offset = Canvas.offsetter.offset;
-    reset = Canvas.offsetter.reset;
     document.querySelector("#clear_button").addEventListener("click", function(){network.reset(); Canvas.clearStates(); Canvas.redraw();})
     assignEditModeHandlers();
     assignMouseHandlers();
