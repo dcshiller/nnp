@@ -13,9 +13,11 @@ Drawer.drawNode = function (canvas, node){
 }
 
 Drawer.drawNodeName = function(canvas, node) {
+  if (Drawer.offsetter.proportion <= .5) { return }
   ctx = canvas.getContext('2d');
+  let coords = Drawer.offsetter.offset(node)
   ctx.beginPath();
-  ctx.fillText(node.name, aj(node.x), aj(node.y));
+  ctx.fillText(node.name, coords.x - 5, coords.y + 3);
   ctx.stroke();
   ctx.closePath();
 }

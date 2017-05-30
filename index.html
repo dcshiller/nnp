@@ -6,11 +6,20 @@
     <link rel="stylesheet" href="master.css">
     <link rel="stylesheet" href="fa/css/font-awesome.min.css">
 
-    <script src="bundle.js" charset="utf-8"></script>
     <script src="helpers.js" charset="utf-8"></script>
+    <script src="bundle.js" charset="utf-8"></script>
   </head>
   <body>
-    <ul id="action_menu">
+    <header>
+      <label id="menu_label">Menu</label>
+      <ul id="menu_menu">
+        <li data-menu="action_menu">Action Menu</li>
+        <li data-menu="node_menu">Node Menu</li>
+        <li data-menu="navigation_menu">Navigation Menu</li>
+        <li data-menu="play_menu">Play Menu</li>
+      </ul>
+    </header>
+    <ul id="action_menu" class="menu">
       <li data-mode="place">Place</li>
       <li data-mode="move">Move</li>
       <li data-mode="connect">Connect</li>
@@ -18,11 +27,11 @@
       <li data-mode="delete">Delete</li>
       <li id="clear_button" data-mode="clear">Clear</li>
     </ul>
-    <ul id="play_menu">
+    <ul id="play_menu" class="menu">
       <li id="play_button" data-mode="play"><i class="fa fa-play" aria-hidden="true"></i></li>
       <li id="advance_button" data-mode="advance"><i class="fa fa-step-forward" aria-hidden="true"></i></li>
     </ul>
-    <div id="direction_menu">
+    <div id="navigation_menu">
       <div class="relative">
         <div id="up_button" class="up_arrow"></div>
         <div id="down_button" class="down_arrow"></div>
@@ -32,7 +41,7 @@
         <div id="zoom_out_button"><i class="fa fa-compress"></i></div>
       </div>
     </div>
-    <div class="focused_node column" style="justify-content: flex-start;">
+    <div id="node_menu" class="focused_node column menu" style="justify-content: flex-start;">
       <div class="column">
         <h1>Node in Focus</h1>
         <hr>
@@ -50,13 +59,13 @@
         </div>
       </div>
       <div class="column">
-        <div class="column">
+        <div class="column connection_column">
           <h3 class="t-center">Afferent Connections</h3>
           <div class="row connection_row" id="connection_to_row">
             <ul id="afferent_connection_list"></ul>
           </div>
         </div>
-        <div class="column">
+        <div class="column connection_column">
           <h3 class="t-center">Efferent Connections</h3>
           <div class="connection_row text-center" id="connection_from_row">
             <ul id="efferent_connection_list"> </ul>

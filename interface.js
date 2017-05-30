@@ -5,7 +5,8 @@ var Controllers = new Set ([
                             require('./controllers/time_controller.js'),
                             require('./controllers/file_controller.js'),
                             require('./controllers/navigation_controller.js'),
-                            require('./controllers/node_panel_controller.js')
+                            require('./controllers/node_panel_controller.js'),
+                            require('./controllers/menu_controller.js')
                            ])
 var Canvas;
 

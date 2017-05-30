@@ -37,12 +37,12 @@ function connect(node, e){
 function place(node, e){
   if (e.target.tagName == "CANVAS"){
     const coords = eToAbsCoords(e);
-    node.x = coords.x
-    node.y = coords.y
-    Canvas.redraw()
-    Canvas.reColor()
-    document.removeEventListener(e.type, window.mouseUpHandler)
-    document.removeEventListener("mousemove", window.mouseMoveHandler)
+    node.x = coords.x;
+    node.y = coords.y;
+    Canvas.redraw();
+    Canvas.reColor();
+    document.removeEventListener(e.type, window.mouseUpHandler);
+    document.removeEventListener("mousemove", window.mouseMoveHandler);
   }
 }
 
@@ -149,7 +149,7 @@ function assignMouseHandlers(){
 const ActionController = {
   initialize: function(canvasManager){
     Canvas = canvasManager;
-    document.querySelector("#clear_button").addEventListener("click", function(){network.reset(); Canvas.clearStates(); Canvas.redraw();})
+    document.querySelector("#clear_button").addEventListener("click", function(){network.reset(); Canvas.clearStates(); window.focusedNode = null; Canvas.redraw();})
     assignEditModeHandlers();
     assignMouseHandlers();
   }

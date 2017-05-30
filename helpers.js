@@ -10,6 +10,8 @@ NodeList.prototype[Symbol.iterator] = function() {
   }
 }
 
+doBoth = function(func1, func2) { return function(){func1(); func2();} }
+
 /* FileSaver.js
  * A saveAs() FileSaver implementation.
  * 1.3.2

@@ -12,34 +12,40 @@ const CanvasManager = {
 CanvasManager.navUp = function(){
   CanvasManager.offsetter.changeOffset(0,20);
   CanvasManager.redraw();
+  CanvasManager.reColor();
 }
 CanvasManager.navDown = function(){
   CanvasManager.offsetter.changeOffset(0,-20);
   CanvasManager.redraw();
+  CanvasManager.reColor();
 }
 CanvasManager.navLeft = function(){
   CanvasManager.offsetter.changeOffset(20,0);
   CanvasManager.redraw();
+  CanvasManager.reColor();
 }
 CanvasManager.navRight = function(){
   CanvasManager.offsetter.changeOffset(-20,0);
   CanvasManager.redraw();
+  CanvasManager.reColor();
 }
 
 CanvasManager.zoomIn = function(){
   CanvasManager.offsetter.changeProportion(0.1);
   CanvasManager.redraw();
+  CanvasManager.reColor();
 }
 
 CanvasManager.zoomOut = function(){
   CanvasManager.offsetter.changeProportion(-0.1);
   CanvasManager.redraw();
+  CanvasManager.reColor();
 }
 
 CanvasManager.create = function(id){
   canvas = document.createElement("canvas");
-  canvas.setAttribute('width', '1000');
-  canvas.setAttribute('height', '500');
+  canvas.setAttribute('width', window.innerWidth);
+  canvas.setAttribute('height', window.innerHeight);
   if (id) { canvas.setAttribute("id", id); }
   document.querySelector('body').appendChild(canvas);
   return canvas
@@ -82,20 +88,26 @@ CanvasManager.draw = function(){
   }) 
 }
 
+var drawConnectedNodeNames = function(){
+  Drawer.drawNodeName(CanvasManager.selectionCanvas, window.focusedNode)
+  for (const node of window.focusedNode.allConnectedNodes()) {
+    Drawer.drawNodeName(CanvasManager.selectionCanvas, node)
+  }
+
+}
+
 var highlightSelection = function(){
   clearSelectionCanvas();
   if(window.focusedNode){
-    Drawer.highlight(CanvasManager.selectionCanvas, window.focusedNode)
-    Drawer.drawNodeName(CanvasManager.selectionCanvas, window.focusedNode)
-    for (const node of window.focusedNode.allConnectedNodes()) {
-      Drawer.drawNodeName(CanvasManager.selectionCanvas, node)
-    }
+    Drawer.highlight(CanvasManager.selectionCanvas, window.focusedNode);
+    drawConnectedNodeNames();
   }
 }
 
 CanvasManager.redraw = function(){
   CanvasManager.nodeCanvas.remove()
   CanvasManager.draw();
+  clearSelectionCanvas();
   highlightSelection();
 }
 
@@ -121,21 +133,27 @@ CanvasManager.update = function(){
 }
 
 function writeConnectionDetails(connection, list){
-  let listTag = document.createElement("li")
-  listTag.innerHTML = `${connection.fromNode.name} (${connection.strength}) ----> ${connection.toNode.name}`
-  let raiseButton = document.createElement("button")
-  let lowerButton = document.createElement("button")
-  let removeButton = document.createElement("button")
-  raiseButton.innerHTML = "+"
-  lowerButton.innerHTML = "-"
-  removeButton.innerHTML = "x"
-  raiseButton.addEventListener("click", function(e){connection.increaseStrength(); CanvasManager.redraw(); CanvasManager.focusNode();})
-  lowerButton.addEventListener("click", function(e){connection.decreaseStrength(); CanvasManager.redraw(); CanvasManager.focusNode();})
-  removeButton.addEventListener("click", function(e){connection.remove(); CanvasManager.redraw(); CanvasManager.focusNode();})
-  listTag.appendChild(raiseButton)
-  listTag.appendChild(lowerButton)
-  listTag.appendChild(removeButton)
-  document.querySelector(list).appendChild(listTag)
+  const listTag = document.createElement("li");
+  listTag.innerHTML = `${connection.fromNode.name} ----> ${connection.toNode.name}`;
+  const raiseButton = document.createElement("button");
+  const lowerButton = document.createElement("button");
+  const removeButton = document.createElement("button");
+  const strength = document.createElement("span");
+  const buttonBox = document.createElement("div");
+  buttonBox.classList += "button_box";
+  strength.innerHTML = connection.strength;
+  raiseButton.innerHTML = "+";
+  lowerButton.innerHTML = "-";
+  removeButton.innerHTML = "x";
+  raiseButton.addEventListener("click", function(e){connection.increaseStrength(); CanvasManager.redraw(); CanvasManager.focusNode();});
+  lowerButton.addEventListener("click", function(e){connection.decreaseStrength(); CanvasManager.redraw(); CanvasManager.focusNode();});
+  removeButton.addEventListener("click", function(e){connection.remove(); CanvasManager.redraw(); CanvasManager.focusNode();});
+  buttonBox.appendChild(strength);
+  buttonBox.appendChild(raiseButton);
+  buttonBox.appendChild(lowerButton);
+  buttonBox.appendChild(removeButton);
+  listTag.appendChild(buttonBox);
+  document.querySelector(list).appendChild(listTag);
 }
 
 CanvasManager.focusNode = function(){
