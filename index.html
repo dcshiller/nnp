@@ -3,7 +3,8 @@
   <head>
     <meta charset="utf-8">
     <title></title>
-    <link rel="stylesheet" href="master.css">
+    <link rel="stylesheet" href="css/master.css">
+    <link rel="stylesheet" href="css/menu.css">
     <link rel="stylesheet" href="fa/css/font-awesome.min.css">
 
     <script src="helpers.js" charset="utf-8"></script>
@@ -13,25 +14,30 @@
     <header>
       <label id="menu_label">Menu</label>
       <ul id="menu_menu">
-        <li data-menu="action_menu">Action Menu</li>
-        <li data-menu="node_menu">Node Menu</li>
-        <li data-menu="navigation_menu">Navigation Menu</li>
-        <li data-menu="play_menu">Play Menu</li>
+        <li id="action_menu_selector" class="active_selection selectable" data-menu="action_menu">Action Menu</li>
+        <li id="node_menu_selector" class="selectable" data-menu="node_menu">Node Menu</li>
+        <li id="navigation_menu_selector" class="selectable" data-menu="navigation_menu">Navigation Menu</li>
+        <li id="play_menu_selector" class="selectable" data-menu="play_menu">Play Menu</li>
+        <hr>
+        <li id="save_button" data-mode="save">Save</i></li>
+        <li id="load_button" name="button">Load</li>
+        <input type="file" id="upload_file" style="display: none;" name="" value=""></input>
       </ul>
+
     </header>
     <ul id="action_menu" class="menu">
-      <li data-mode="place">Place</li>
-      <li data-mode="move">Move</li>
-      <li data-mode="connect">Connect</li>
-      <li data-mode="toggle">Toggle</li>
-      <li data-mode="delete">Delete</li>
+      <li data-mode="place"><img src="images/place.png" alt=""></li>
+      <li data-mode="move"><img src="images/move.png" alt=""></li>
+      <li data-mode="connect"><img src="images/connect.png" alt=""></li>
+      <li data-mode="toggle"><img src="images/toggle.png" alt=""></li>
+      <li data-mode="delete"><img src="images/delete.png" alt=""></li>
       <li id="clear_button" data-mode="clear">Clear</li>
     </ul>
-    <ul id="play_menu" class="menu">
+    <ul id="play_menu" class="menu hidden">
       <li id="play_button" data-mode="play"><i class="fa fa-play" aria-hidden="true"></i></li>
       <li id="advance_button" data-mode="advance"><i class="fa fa-step-forward" aria-hidden="true"></i></li>
     </ul>
-    <div id="navigation_menu">
+    <div id="navigation_menu" class="menu hidden">
       <div class="relative">
         <div id="up_button" class="up_arrow"></div>
         <div id="down_button" class="down_arrow"></div>
@@ -41,7 +47,7 @@
         <div id="zoom_out_button"><i class="fa fa-compress"></i></div>
       </div>
     </div>
-    <div id="node_menu" class="focused_node column menu" style="justify-content: flex-start;">
+    <div id="node_menu" class="focused_node column menu hidden" style="justify-content: flex-start;">
       <div class="column">
         <h1>Node in Focus</h1>
         <hr>
@@ -73,12 +79,5 @@
         </div>
       </div>
     </div>
-    <footer>
-      <ul>
-        <button id="save_button" data-mode="save"><i class="fa fa-floppy-o" aria-hidden="true"></i></button>
-        <button id="load_button" name="button"><i class="fa fa-upload" aria-hidden="true"></i></button>
-        <input type="file" id="upload_file" style="display: none;" name="" value=""></input>
-      </ul>
-    </footer>
   </body>
 </html>

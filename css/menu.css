@@ -1,0 +1,247 @@
+header {
+  box-shadow: 1px 1px rgba(0,0,0,.3);
+  border-bottom: 1px solid tan;
+  border-left: 1px solid tan;
+  border-right: 1px solid tan;
+  border-radius: 3px;
+  text-align: center;
+  width: 150px;
+}
+
+header, header * {
+  background: ivory;
+  display: fixed;
+  position: relative;
+  top: 0px;
+  z-index: 10;
+}
+
+header:hover {
+  box-shadow: 3px 3px rgba(0,0,0,.3);
+}
+
+.menu {
+  cursor: grab;
+  cursor: -webkit-grab;
+}
+
+.menu * {
+  cursor: pointer;
+}
+
+#menu_menu {
+  display: none;
+  list-style: none;
+  padding: 5px;
+  text-align: left;
+  width: calc(100% - 10px);
+  z-index: 10;
+}
+#menu_menu li {
+  width: 100%;
+}
+#menu_menu li:hover {
+  text-decoration: underline;
+}
+
+#menu_menu li.active_selection:before {
+  content: "\f196  ";
+  font-family: "FontAwesome";
+  text-decoration: none;
+}
+
+#menu_menu li.selectable:not(.active_selection):before {
+  content: "\f096  ";
+  font-family: "FontAwesome";
+  text-decoration: none;
+}
+
+#menu_menu li:not(.selectable) {
+  text-align: center;
+}
+
+header:hover #menu_menu, #menu_menu:hover {
+  display: block;
+}
+
+#action_menu {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  list-style: none;
+  margin: 10px 0;
+  position: fixed;
+  top: 100px;
+  left: 30px;
+}
+
+#action_menu li {
+  border: 1px solid black;
+  padding: 10px;
+  margin-top: 5px;
+  text-align: center;
+}
+
+#play_menu {
+  display: flex;
+  flex-direction: row;
+  list-style: none;
+  justify-content: center;
+  margin: auto;
+  position: fixed;
+  top: 630px;
+}
+
+#play_menu li {
+  border: 1px solid black;
+  border-radius: 3px;
+  margin-right: 20px;
+  padding: 10px;
+  text-align: center;
+  width: 75px;
+}
+
+li.selected {
+  background: orange
+}
+
+#focused_node {
+  border: 1px solid black;
+  height: 30px;
+  width: 100px;
+}
+
+.focused_node {
+  border: 1px solid black;
+  height: 480px;
+  left: 1050px;
+  padding: 5px 10px;
+  position: fixed;
+  top: 30px;
+  width: 250px;
+}
+
+.focused_node * {
+  margin-bottom: 0px;
+  margin-top: 0px;
+  text-align: left;
+}
+
+.focused_node ul {
+  margin-top: 10px;
+  padding: 0;
+  width: 100%;
+}
+
+.focused_node li {
+  display: flex;
+  justify-content: space-between; 
+  list-style: none;
+}
+
+.button_box {
+  display: flex;
+  justify-content: space-between;
+  width: 100px;
+}
+
+.button_box span {
+  padding: 0px 10px;
+}
+.button_box *:last-child {
+  background: red;
+}
+
+#node_threshold {
+  display: inline-block;
+}
+
+#navigation_menu {
+  left: 50px;
+  position: fixed;
+  top: 50px;
+  z-index: 5;
+}
+
+#navigation_menu .relative {
+  background: ivory;
+  border: 1px solid tan;
+  border-radius: 10px;
+  height: 135px;
+  opacity: .7;
+  position: relative;
+  width: 140px;
+}
+
+#navigation_menu .relative > *  {
+  height: 0;
+  position: relative;
+  width: 0;
+  z-index: 5;
+}
+
+#navigation_menu .relative .up_arrow {
+  left: 40px;
+  top: 0px;
+}
+
+#navigation_menu .relative .down_arrow {
+  left: 40px;
+  top: 75px;
+}
+
+#navigation_menu .relative .left_arrow {
+  left: 0px;
+  top: -21px;
+}
+
+#navigation_menu .relative .right_arrow {
+  left: 110px;
+  top: -81px;
+}
+
+#navigation_menu .relative #zoom_in_button {
+  border: 1px solid black;
+  border-radius: 10px;
+  height: 17px;
+  left: 40px;
+  padding: 5px;
+  text-align: center;
+  top: -130px;
+  width: 17px;
+}
+
+#navigation_menu .relative #zoom_out_button {
+  border: 1px solid black;
+  border-radius: 10px;
+  left: 74px;
+  height: 17px;
+  padding: 5px;
+  text-align: center;
+  top: -159px;
+  width: 17px;
+}
+
+.up_arrow {
+  border-bottom: 30px solid black;
+  border-left: 30px solid transparent;
+  border-right: 30px solid transparent;
+}
+
+.down_arrow {
+  border-left: 30px solid transparent;
+  border-right: 30px solid transparent;
+  border-top: 30px solid black;
+}
+
+.right_arrow {
+  border-bottom: 30px solid transparent;
+  border-top: 30px solid transparent;
+  border-left: 30px solid black;
+}
+
+.left_arrow {
+  border-bottom: 30px solid transparent;
+  border-top: 30px solid transparent;
+  border-right: 30px solid black;
+}

@@ -1,0 +1,117 @@
+h1, h2 {
+  margin: 0;
+}
+
+body {
+  margin: 0;
+}
+
+.hidden {
+  display: none !important;
+}
+
+canvas {
+  left: 0px;
+  position: fixed;
+  top: 0px;
+}
+
+body.delete canvas {
+  cursor: url('../images/delete.png') 7 7, auto;
+}
+
+body.place canvas {
+  cursor: url('../images/place.png') 7 16, auto;
+}
+
+body.move canvas {
+  cursor: url('../images/move.png') 7 7, auto;
+}
+
+body.connect canvas {
+  cursor: url('../images/connect_cursor.png'), default;
+}
+
+body.toggle canvas {
+  cursor: url('../images/toggle.png') 7 16, auto;
+}
+
+#network {
+  z-index: 2;
+}
+
+#states {
+  z-index: 3;
+}
+
+#selection {
+  z-index: 4;
+}
+
+.menu {
+  background: rgba(240, 240, 240, .8);
+  border: 1px solid black;
+  padding: 10px;
+  z-index: 6;
+}
+
+#
+
+body {
+  position: relative;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.column.connection_column {
+  margin-top:  30px;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  min-height: 40px;
+}
+
+.connection_row {
+  background: ivory;
+  border: 1px solid tan;
+  border-radius: 3px;
+  display: flex;
+  flex-direction: row;
+  flex-grow: 2;
+  justify-content: space-between;
+  min-height: 50px;
+  padding: 10px;
+  width: calc(100% - 30px);
+}
+
+.connection_row ul {
+  overflow: scroll;
+}
+
+ul::-webkit-scrollbar {
+  background-color: none;
+  -webkit-appearance: none;
+  width: 7px;
+}
+
+ul::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, .5);
+  border-radius: 4px;
+}
+
+
+.t-center {
+  text-align: center !important
+}
+
+footer {
+  bottom: 0;
+  position: fixed;
+}

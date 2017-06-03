@@ -95,21 +95,16 @@ function handleDeleteMouseup(e){
   else if (node == window.focusedNode) { window.focusedNode = null; Canvas.focusNode();}
   network.nodes.delete(node);
   node.removeAllConnections();
-  // for (let possibleConnection of network.nodes){
-  //   if(possibleConnection.pointsTo(node)){ 
-  //     possibleConnection.removeConnectionsWith(node)
-  //   }
-  // }
   Canvas.redraw()
 }
 
 function selectNewModeHandler(e) {
-    for (liElement of document.querySelectorAll('#action_menu li')){
-      liElement.classList = liElement.classList.value.replace("selected", "")
-    }
-    e.target.classList += 'selected';
-    document.querySelector('body').classList = e.target.getAttribute('data-mode')
-    window.editMode = e.target.getAttribute('data-mode')
+  for (liElement of document.querySelectorAll('#action_menu li')){
+    liElement.classList = liElement.classList.value.replace("selected", "")
+  }
+  e.currentTarget.classList += 'selected';
+  document.querySelector('body').classList = e.currentTarget.getAttribute('data-mode')
+  window.editMode = e.currentTarget.getAttribute('data-mode')
 }
 
 function assignEditModeHandlers(){
