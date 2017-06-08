@@ -54,13 +54,18 @@ function handleMoveMouseup(e){
   document.addEventListener("mouseup", window.mouseUpHandler);
 }
 
-function shadowMouse(e){
+function shadowMouse(node, e){
   const coords = eToAbsCoords(e);
-  Canvas.shadowNode(coords.x, coords.y);
+  node.x = coords.x;
+  node.y = coords.y;
+  Canvas.redraw();
+  Canvas.reColor();
+  // Canvas.shadowNode(coords.x, coords.y);
 }
 
 function handleMoveMousemove(e){
-  window.mouseMoveHandler = shadowMouse;
+  const node = getNode(eToAbsCoords(e));
+  window.mouseMoveHandler = shadowMouse.bind(this, node);
   document.addEventListener("mousemove", window.mouseMoveHandler);
 
 }
