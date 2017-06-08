@@ -18,6 +18,10 @@ function eToAbsCoords(e){
   return Canvas.offsetter.reset({ x: e.offsetX, y: e.offsetY})
 }
 
+function eToCoords(e){
+  return { x: e.offsetX, y: e.offsetY }
+}
+
 function focusOnSelection(node){
   if (node) {
     window.focusedNode = node;
@@ -33,7 +37,9 @@ function connect(node, e){
     Canvas.redraw()
   }
   document.removeEventListener(e.type, window.mouseUpHandler)
-} 
+  document.removeEventListener("mousemove", window.mouseMoveHandler)
+}
+
 function place(node, e){
   if (e.target.tagName == "CANVAS"){
     const coords = eToAbsCoords(e);
@@ -62,6 +68,10 @@ function shadowMouse(node, e){
   Canvas.reColor();
   // Canvas.shadowNode(coords.x, coords.y);
 }
+
+function drawArrow(node, e){
+  Canvas.drawArrowFromNode(node, eToCoords(e));
+};
 
 function handleMoveMousemove(e){
   const node = getNode(eToAbsCoords(e));
@@ -126,6 +136,13 @@ function handleConnectMouseup(e){
   document.addEventListener("mouseup", window.mouseUpHandler)
 }
 
+function handleConnectMousemove(e){
+  node = getNode(eToAbsCoords(e))
+  if (!node) { return }
+  window.mouseMoveHandler = drawArrow.bind(this, node)
+  document.addEventListener("mousemove", window.mouseMoveHandler)
+}
+
 function assignMouseHandlers(){
   document.addEventListener("mousedown", function(e){
     if (e.target.tagName == "CANVAS" && window.editMode) {
@@ -140,7 +157,8 @@ function assignMouseHandlers(){
         case "delete":
           handleDeleteMouseup(e); break;
         case "connect":
-          handleConnectMouseup(e); break;
+          handleConnectMouseup(e);
+          handleConnectMousemove(e); break;
       }
     }
   })

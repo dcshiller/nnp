@@ -126,6 +126,11 @@ CanvasManager.shadowNode = function(x,y){
   Drawer.drawNodeShadow(CanvasManager.selectionCanvas,x,y)
 }
 
+CanvasManager.drawArrowFromNode = function(node, coords){
+  clearSelectionCanvas();
+  Drawer.drawArrowFromNode(CanvasManager.selectionCanvas, node, coords)
+}
+
 CanvasManager.update = function(){
   network.updateAll()
   CanvasManager.reColor()

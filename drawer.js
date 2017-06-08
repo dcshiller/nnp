@@ -81,17 +81,32 @@ function drawOtherConnection(ctx, connection){
 }
 
 function drawConnection(ctx, connection){
-  ctx.beginPath()
-  let connectionMagnitude = connection.strength > 0 ? connection.strength : (-1 * connection.strength)
-  ctx.lineWidth = connectionMagnitude
-  ctx.strokeStyle = connection.strength > 0 ? 'black' : 'red'
+  ctx.beginPath();
+  let connectionMagnitude = connection.strength > 0 ? connection.strength : (-1 * connection.strength);
+  ctx.lineWidth = connectionMagnitude;
+  ctx.strokeStyle = connection.strength > 0 ? 'black' : 'red';
   if (connection.toSelf()){
-    drawSelfConnection(ctx, connection)
+    drawSelfConnection(ctx, connection);
   }
   else {
-    drawOtherConnection(ctx, connection)
+    drawOtherConnection(ctx, connection);
   }
-  ctx.closePath()
+  ctx.closePath();
+}
+
+Drawer.drawArrowFromNode = function(canvas, node, coords){
+  ctx = canvas.getContext('2d');
+  ctx.beginPath();
+  let toCoords = coords;
+  let fromCoords = offset(node);
+  let angle = getAngle(fromCoords.x, fromCoords.y, toCoords.x, toCoords.y)
+  let length = getLength(fromCoords.x, fromCoords.y, toCoords.x, toCoords.y)
+  let xterminas = toCoords.x
+  let yterminas = toCoords.y
+  let xinitiatus = toCoords.x + ((length - radius(node)) * Math.cos(angle))
+  let yinitiatus = toCoords.y + ((length - radius(node)) * Math.sin(angle))
+  drawArrowFrom(xinitiatus,yinitiatus,xterminas,yterminas, 1)
+  ctx.closePath();
 }
 
 function getAngle(x1,y1,x2,y2){
