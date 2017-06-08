@@ -76,10 +76,15 @@ header:hover #menu_menu, #menu_menu:hover {
 }
 
 #action_menu li {
+  background: ivory;
   border: 1px solid black;
-  padding: 10px;
   margin-top: 5px;
+  padding: 10px;
   text-align: center;
+}
+
+#action_menu li.selected {
+  background: orange;
 }
 
 #play_menu {
