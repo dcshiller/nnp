@@ -1,5 +1,6 @@
 const Node = require('./node.js')
 const Connection = require('./connection.js')
+const FunctionalNode = require('./functional_node.js')
 
 function Network (){
   this.nodes = new Set();
@@ -11,14 +12,6 @@ Network.prototype.include = function(node, name){
   this.nodes.add(node)
   node.name || (node.name = "#" + this.nodes.size++)
 };
-
-// Network.prototype.connectedNodes = function (thisNode) {
-//   var connectedNodes = [];
-//   for (otherNode of this.nodes){
-//     if (thisNode.pointTo(otherNode)){ connectedNodes.push(otherNode); }
-//   }
-//   return connectedNodes;
-// };
 
 // Updating
 

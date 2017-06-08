@@ -7,7 +7,7 @@ const n2 = new Node(400,200,"");
 const n3 = new Node(500,200,"");
 const n4 = new Node(600,200,"");
 const n5 = new Node(700,200,"");
-const n6 = new Node(800,200,"");
+const n6 = new FunctionalNode(800,200,"", console.log.bind(this, "yep"))
 network.include(n1);
 network.include(n2);
 network.include(n3);
