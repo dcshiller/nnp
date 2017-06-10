@@ -153,7 +153,7 @@ li.selected {
 .button_box span {
   padding: 0px 10px;
 }
-.button_box *:last-child {
+.button_box > *:last-child {
   background: red;
 }
 
@@ -169,11 +169,7 @@ li.selected {
 }
 
 #navigation_menu .relative {
-  background: ivory;
-  border: 1px solid tan;
-  border-radius: 10px;
   height: 135px;
-  opacity: .7;
   position: relative;
   width: 140px;
 }

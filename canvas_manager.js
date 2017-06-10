@@ -139,7 +139,7 @@ CanvasManager.update = function(){
 
 function writeConnectionDetails(connection, list){
   const listTag = document.createElement("li");
-  listTag.innerHTML = `${connection.fromNode.name} ----> ${connection.toNode.name}`;
+  listTag.innerHTML = `${connection.fromNode.name} <i class="fa fa-long-arrow-right" aria-hidden="true"></i> ${connection.toNode.name}`;
   const raiseButton = document.createElement("button");
   const lowerButton = document.createElement("button");
   const removeButton = document.createElement("button");
@@ -147,9 +147,9 @@ function writeConnectionDetails(connection, list){
   const buttonBox = document.createElement("div");
   buttonBox.classList += "button_box";
   strength.innerHTML = connection.strength;
-  raiseButton.innerHTML = "+";
-  lowerButton.innerHTML = "-";
-  removeButton.innerHTML = "x";
+  raiseButton.innerHTML = "<i class='fa fa-plus' aria-hidden='true'></i>";
+  lowerButton.innerHTML = "<i class='fa fa-minus' aria-hidden='true'></i>";
+  removeButton.innerHTML = "<i class='fa fa-times' aria-hidden='true'></i>";
   raiseButton.addEventListener("click", function(e){connection.increaseStrength(); CanvasManager.redraw(); CanvasManager.focusNode();});
   lowerButton.addEventListener("click", function(e){connection.decreaseStrength(); CanvasManager.redraw(); CanvasManager.focusNode();});
   removeButton.addEventListener("click", function(e){connection.remove(); CanvasManager.redraw(); CanvasManager.focusNode();});
