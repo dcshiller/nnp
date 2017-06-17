@@ -1,4 +1,5 @@
-const Node = require('./node.js');
+const FunctionalNode = require('./node.js');
+const Node = require('./functional_node.js');
 const Network = require('./network.js');
 
 window.network = new Network();

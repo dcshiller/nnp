@@ -2,9 +2,11 @@
 const Canvas = require('./canvas_manager.js');
 require('./starting_network.js');
 const Interface = require('./interface.js');
+const Critter = require('./critter.js');
 // var CritterCanvas = require('./critter_canvas_manager.js');
 window.critter = new Critter();
 // window.critterCanvas = CritterCanvas;
+require('./starting_network.js');
 var CritterWatcher = require('./controllers/critter_watcher.js')
 
 document.addEventListener("DOMContentLoaded", function(){
