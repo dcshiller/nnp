@@ -115,4 +115,17 @@ Node.fromObj = function(obj){
   return node
 }
 
+Node.prototype.convertTo = function(className){
+  newNode = new className(this.x, this.y, this.name)
+  for (prop in this){
+    if (newNode[prop]){ newNode[prop] = this[prop] }
+  }
+  for (const connection of this.connections.to ){ 
+    connection.from = newNode;
+  }
+  for (const connection of this.connections.from ){ 
+    connection.to = newNode;
+  }
+}
+
 module.exports = Node

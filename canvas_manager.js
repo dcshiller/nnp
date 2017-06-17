@@ -130,6 +130,7 @@ CanvasManager.update = function(){
 function writeConnectionDetails(connection, list){
   const listTag = document.createElement("li");
   listTag.innerHTML = `${connection.fromNode.name} <i class="fa fa-long-arrow-right" aria-hidden="true"></i> ${connection.toNode.name}`;
+  // listTag.innerHTML = `${connection.fromNode.name} → ${connection.toNode.name}`;
   const raiseButton = document.createElement("button");
   const lowerButton = document.createElement("button");
   const removeButton = document.createElement("button");
@@ -155,7 +156,10 @@ CanvasManager.focusNode = function(){
   highlightSelection();
   if (window.focusedNode){
     document.querySelector("#node_threshold").innerHTML = window.focusedNode.threshold;
-    document.querySelector("#node_name").innerHTML = window.focusedNode.name;
+    const nodeName = document.querySelector("#node_name")
+    nodeName.value = window.focusedNode.name
+    nodeName.oninput = function(){window.focusedNode.name = document.querySelector("#node_name").value; CanvasManager.redraw();}
+    // document.querySelector("#node_name").innerHTML = window.focusedNode.name;
     document.querySelector("#afferent_connection_list").innerHTML = "";
     document.querySelector("#efferent_connection_list").innerHTML = "";
     for (const connection of window.focusedNode.connections.to){

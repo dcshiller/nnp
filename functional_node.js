@@ -11,8 +11,10 @@ function FunctionalNode(x,y,name,func){
   this.func = func
 }
 
+FunctionalNode.prototype.setFunc = function(func){ this.func = func; };
+
 FunctionalNode.prototype = new Node();
 
-FunctionalNode.prototype.on = function(){ this.state = 1; this.func() }
+FunctionalNode.prototype.on = function(){ this.state = 1; this.func(); }
 
 module.exports = FunctionalNode

@@ -5,12 +5,14 @@
     <title></title>
     <link rel="stylesheet" href="css/master.css">
     <link rel="stylesheet" href="css/menu.css">
+    <link rel="stylesheet" href="css/critter.css">
     <link rel="stylesheet" href="fa/css/font-awesome.min.css">
 
     <script src="helpers.js" charset="utf-8"></script>
     <script src="bundle.js" charset="utf-8"></script>
   </head>
   <body>
+    <img src="images/billy.png" class="hidden" alt=""/>
     <header>
       <label id="menu_label">Menu</label>
       <ul id="menu_menu">
@@ -53,7 +55,7 @@
         <hr>
         <div class="row">
           <h4> Name </h4>
-          <h2 id="node_name">--</h2>
+          <input type="text" id="node_name"></input>
         </div>
         <div class="row">
           <h4> Threshold </h4>

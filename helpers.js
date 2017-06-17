@@ -10,7 +10,13 @@ NodeList.prototype[Symbol.iterator] = function() {
   }
 }
 
-doBoth = function(func1, func2) { return function(){func1(); func2();} }
+const doBoth = function(func1, func2) { return function(){func1(); func2();} }
+const doEach = function() {
+  funcs = arguments
+  return function(){
+                          for(func of funcs){func()}
+                       } 
+}
 
 /* FileSaver.js
  * A saveAs() FileSaver implementation.

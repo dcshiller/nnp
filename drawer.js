@@ -17,7 +17,7 @@ Drawer.drawNodeName = function(canvas, node) {
   const ctx = canvas.getContext('2d');
   const coords = Drawer.offsetter.offset(node);
   ctx.beginPath();
-  ctx.fillText(node.name, coords.x - 5, coords.y + 3);
+  ctx.fillText(node.name.slice(0,3), coords.x - 5, coords.y + 3);
   ctx.stroke();
   ctx.closePath();
 }
