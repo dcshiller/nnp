@@ -1,6 +1,6 @@
 // Handles click events
 
-var Controllers = new Set ([
+const Controllers = new Set ([
                             require('./controllers/action_controller.js'),
                             require('./controllers/time_controller.js'),
                             require('./controllers/file_controller.js'),

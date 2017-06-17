@@ -2,45 +2,45 @@ var Connection = require('./connection.js')
 
 function Node(x,y,name){
   this.connections = { to: new Set(), from: new Set() };
-  this.state = 0
-  this.lastState = 0
-  this.threshold = 1
-  this.x = x
-  this.y = y
-  this.name = name
+  this.state = 0;
+  this.lastState = 0;
+  this.threshold = 1;
+  this.x = x;
+  this.y = y;
+  this.name = name;
 }
 
 Node.prototype.assess = function(){
-  value = 0
+  value = 0;
   for (let connection of this.connections.to){
-    value += (connection.transmission())
+    value += (connection.transmission());
   }
   if (value >= this.threshold){ return true }
   return false
 }
 
 Node.prototype.on = function(){
-  this.state = 1
+  this.state = 1;
 }
 
 Node.prototype.off = function(){
-  this.state = 0
+  this.state = 0;
 }
 
 Node.prototype.remember = function(){
-  this.lastState = this.state
+  this.lastState = this.state;
 }
 
 Node.prototype.update = function(){
-  this.assess() ? this.on() : this.off()
+  this.assess() ? this.on() : this.off();
 }
 
 Node.prototype.pointFrom = function(otherNode){
-  new Connection(otherNode, this)
+  new Connection(otherNode, this);
 }
 
 Node.prototype.addToConnection = function(connection){
-  this.connections.to.add(connection)
+  this.connections.to.add(connection);
 }
 
 Node.prototype.allConnectedNodes = function(){
@@ -57,15 +57,15 @@ Node.prototype.allConnectedNodes = function(){
 }
 
 Node.prototype.addFromConnection = function(connection){
-  this.connections.from.add(connection)
+  this.connections.from.add(connection);
 }
 
 Node.prototype.pointTo = function(otherNode){
-  new Connection(this, otherNode)
+  new Connection(this, otherNode);
 }
 
 Node.prototype.pointsTo = function(otherNode){
-  for (let connection of this.connections.from){
+  for (const connection of this.connections.from){
     if(connection.toNode == otherNode){
       return true
     }
@@ -74,14 +74,14 @@ Node.prototype.pointsTo = function(otherNode){
 }
 
 Node.prototype.removeConnectionsWith = function(otherNode){
-  for (let connection of this.connections.to){
+  for (const connection of this.connections.to){
     if(connection.toNode == otherNode){
-      connection.remove()
+      connection.remove();
     }
   }
   for (let connection of this.connections.to){
     if(connection.fromNode == otherNode){
-      connection.remove()
+      connection.remove();
     }
   }
 }
@@ -92,8 +92,8 @@ Node.prototype.removeConnection = function(connection){
 }
 
 Node.prototype.removeAllConnections = function(){
-  for (let connection of this.connections.to){ connection.remove() }
-  for (let connection of this.connections.from){ connection.remove() }
+  for (const connection of this.connections.to){ connection.remove(); }
+  for (const connection of this.connections.from){ connection.remove(); }
 }
 
 Node.prototype.toObj = function(){
@@ -108,10 +108,10 @@ Node.prototype.toObj = function(){
 }
 
 Node.fromObj = function(obj){
-  const node = new Node(obj.x, obj.y, obj.name)
-  node.state = obj.state || 0
-  node.lastState = obj.lastState || 0
-  node.threshold = obj.threshold || 1
+  const node = new Node(obj.x, obj.y, obj.name);
+  node.state = obj.state || 0;
+  node.lastState = obj.lastState || 0;
+  node.threshold = obj.threshold || 1;
   return node
 }
 

@@ -1,5 +1,5 @@
-var Node = require('./node.js')
-var Connection = require('./connection.js')
+const Node = require('./node.js')
+const Connection = require('./connection.js')
 
 function Network (){
   this.nodes = new Set();

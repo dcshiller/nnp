@@ -13,16 +13,16 @@ function rj(num){
 }
 
 Offsetter.changeOffset = function(x, y){
-  Offsetter.x += x
-  Offsetter.y += y
+  Offsetter.x += x;
+  Offsetter.y += y;
 }
 
 Offsetter.changeProportion = function(diff){
   if (Offsetter.proportion + diff <= .1) { return }
-  const oldProp = Offsetter.proportion
-  Offsetter.proportion += diff
-  Offsetter.x += (1000 / Offsetter.proportion) * ( 1 - (Offsetter.proportion / oldProp)) / 2
-  Offsetter.y += (500 / Offsetter.proportion) * ( 1 - (Offsetter.proportion / oldProp)) / 2
+  const oldProp = Offsetter.proportion;
+  Offsetter.proportion += diff;
+  Offsetter.x += (1000 / Offsetter.proportion) * ( 1 - (Offsetter.proportion / oldProp)) / 2;
+  Offsetter.y += (500 / Offsetter.proportion) * ( 1 - (Offsetter.proportion / oldProp)) / 2;
 }
 
 Offsetter.offset = function(positionable){

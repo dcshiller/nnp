@@ -9,26 +9,16 @@ const CanvasManager = {
   offsetter: Drawer.offsetter
 }
 
-CanvasManager.navUp = function(){
-  CanvasManager.offsetter.changeOffset(0,20);
-  CanvasManager.redraw();
-  CanvasManager.reColor();
-}
-CanvasManager.navDown = function(){
-  CanvasManager.offsetter.changeOffset(0,-20);
-  CanvasManager.redraw();
-  CanvasManager.reColor();
-}
-CanvasManager.navLeft = function(){
-  CanvasManager.offsetter.changeOffset(20,0);
-  CanvasManager.redraw();
-  CanvasManager.reColor();
-}
-CanvasManager.navRight = function(){
-  CanvasManager.offsetter.changeOffset(-20,0);
-  CanvasManager.redraw();
-  CanvasManager.reColor();
-}
+const nav = function (offsetX, offsetY){
+  self.offsetter.changeOffset(offsetX,offsetY);
+  self.redraw();
+  self.reColor();
+}.bind(CanvasManager);
+
+CanvasManager.navUp = nav.bind(0,20)
+CanvasManager.navDown = nav.bind(0,-20)
+CanvasManager.navLeft = nav.bind(20,0)
+CanvasManager.navRight = nav.bind(-20,0)
 
 CanvasManager.zoomIn = function(){
   CanvasManager.offsetter.changeProportion(0.1);
@@ -43,7 +33,7 @@ CanvasManager.zoomOut = function(){
 }
 
 CanvasManager.create = function(id){
-  canvas = document.createElement("canvas");
+  const canvas = document.createElement("canvas");
   canvas.setAttribute('width', window.innerWidth);
   canvas.setAttribute('height', window.innerHeight);
   if (id) { canvas.setAttribute("id", id); }
@@ -164,17 +154,17 @@ function writeConnectionDetails(connection, list){
 CanvasManager.focusNode = function(){
   highlightSelection();
   if (window.focusedNode){
-    document.querySelector("#node_threshold").innerHTML = window.focusedNode.threshold
-    document.querySelector("#node_name").innerHTML = window.focusedNode.name
-    document.querySelector("#afferent_connection_list").innerHTML = ""
-    document.querySelector("#efferent_connection_list").innerHTML = ""
-    for (let connection of window.focusedNode.connections.to){
-      writeConnectionDetails(connection, "#afferent_connection_list")
+    document.querySelector("#node_threshold").innerHTML = window.focusedNode.threshold;
+    document.querySelector("#node_name").innerHTML = window.focusedNode.name;
+    document.querySelector("#afferent_connection_list").innerHTML = "";
+    document.querySelector("#efferent_connection_list").innerHTML = "";
+    for (const connection of window.focusedNode.connections.to){
+      writeConnectionDetails(connection, "#afferent_connection_list");
     }
-    for (let connection of window.focusedNode.connections.from){
-      writeConnectionDetails(connection, "#efferent_connection_list")
+    for (const connection of window.focusedNode.connections.from){
+      writeConnectionDetails(connection, "#efferent_connection_list");
     }
   }
 }
 
-module.exports = CanvasManager
+module.exports = CanvasManager;
