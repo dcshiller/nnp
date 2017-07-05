@@ -162,6 +162,9 @@ CanvasManager.focusNode = function(){
     // document.querySelector("#node_name").innerHTML = window.focusedNode.name;
     const nodeType = document.querySelector(`#node_type [value='${focusedNode.constructor.name}']`);
     nodeType.selected = true;
+    const nodeRange = document.querySelector(`input[type="range"`);
+    const nodeRangeValue = document.querySelector(`#prob_value`);
+    nodeRange.value = nodeRangeValue.innerHTML = focusedNode.prob || 0.5;
     document.querySelector("#afferent_connection_list").innerHTML = "";
     document.querySelector("#efferent_connection_list").innerHTML = "";
     for (const connection of window.focusedNode.connections.to){
