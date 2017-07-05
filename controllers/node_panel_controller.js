@@ -2,7 +2,8 @@ var Canvas;
 
 const NodeTypes = {
   Node: require('../models/node.js'),
-  FunctionalNode: require('../models/functional_node.js')
+  FunctionalNode: require('../models/functional_node.js'),
+  NoisyNode: require('../models/noisy_node.js')
 }
 
 function raiseThreshold(){
@@ -18,8 +19,8 @@ function lowerThreshold(){
 };
 
 function changeNodeType(){
-  const newNodeTypeName = document.querySelector('#node_type').value
-  const newNodeType = NodeTypes[newNodeTypeName]
+  const newNodeTypeName = document.querySelector('#node_type').value;
+  const newNodeType = NodeTypes[newNodeTypeName];
   const newNode = window.focusedNode.convertTo(newNodeType);
   window.network.exclude(window.focusedNode);
   window.network.include(newNode);

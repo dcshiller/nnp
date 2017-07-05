@@ -1,5 +1,6 @@
 const Node = require('./node.js')
-const FunctionalNode = require('./functional_node.js')
+// const FunctionalNode = require('./functional_node.js')
+// const FunctionalNode = require('./noisy_node.js')
 const Connection = require('./connection.js')
 
 function Network (){

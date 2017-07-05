@@ -120,11 +120,13 @@ Node.prototype.convertTo = function(className){
   for (prop in this){
     if (newNode[prop] && this.hasOwnProperty(prop)){ newNode[prop] = this[prop] }
   }
-  for (const connection of this.connections.to ){ 
-    connection.from = newNode;
-  }
   for (const connection of this.connections.from ){ 
-    connection.to = newNode;
+    connection.fromNode = newNode;
+    newNode.addFromConnection( connection );
+  }
+  for (const connection of this.connections.to ){ 
+    connection.toNode = newNode;
+    newNode.addToConnection( connection );
   }
   return newNode;
 }
