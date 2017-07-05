@@ -156,10 +156,12 @@ CanvasManager.focusNode = function(){
   highlightSelection();
   if (window.focusedNode){
     document.querySelector("#node_threshold").innerHTML = window.focusedNode.threshold;
-    const nodeName = document.querySelector("#node_name")
+    const nodeName = document.querySelector("#node_name");
     nodeName.value = window.focusedNode.name
     nodeName.oninput = function(){window.focusedNode.name = document.querySelector("#node_name").value; CanvasManager.redraw();}
     // document.querySelector("#node_name").innerHTML = window.focusedNode.name;
+    const nodeType = document.querySelector(`#node_type [value='${focusedNode.constructor.name}']`);
+    nodeType.selected = true;
     document.querySelector("#afferent_connection_list").innerHTML = "";
     document.querySelector("#efferent_connection_list").innerHTML = "";
     for (const connection of window.focusedNode.connections.to){

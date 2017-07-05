@@ -1,4 +1,4 @@
-const Node = require('../node.js')
+const Node = require('../models/node.js')
 var Canvas;
 
 function inNode(absCoords,node) {
@@ -72,6 +72,7 @@ function handleMoveMouseup(e){
 }
 
 function shadowMouse(node, e){
+  if (!node) { return }
   const coords = eToAbsCoords(e);
   node.x = coords.x;
   node.y = coords.y;

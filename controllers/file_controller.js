@@ -1,5 +1,5 @@
 var Canvas;
-const Network = require('../network')
+const Network = require('../models/network')
 
 
 function saveNetwork(){

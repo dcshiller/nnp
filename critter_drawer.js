@@ -11,7 +11,7 @@ CritterDrawer.drawCritter = function(critter, i, canvas){
   ctx.clearRect(  0, 0, canvas.width, canvas.height);
   ctx.save();
   ctx.translate(canvas.width/2,canvas.height/2);
-  ctx.translate(critter.position.x * 8 + i * 2 * critter.facing.x, critter.position.y * 8 + i * 2 * critter.facing.y,);
+  ctx.translate(critter.position.x * 8 + i * 2 * critter.facing.x, critter.position.y * 8 + i * 2 * critter.facing.y);
   if(critter.facing.x != 0){ctx.rotate( critter.facing.x * Math.PI / 2);}
   if(critter.facing.y != 0){ctx.rotate( critter.facing.y++ / 2 * Math.PI );}
   // ctx.translate(- canvas.width/2, canvas.height/2);
