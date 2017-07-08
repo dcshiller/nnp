@@ -10,6 +10,8 @@ const CanvasManager = {
   offsetter: Drawer.offsetter
 }
 
+PanelDrawer.initialize(CanvasManager);
+
 const nav = function (offsetX, offsetY){
   self.offsetter.changeOffset(offsetX,offsetY);
   self.redraw();
@@ -134,6 +136,5 @@ CanvasManager.focusNode = function(){
     PanelDrawer.updatePanel(window.focusedNode);
   }
 }
-
 
 module.exports = CanvasManager;

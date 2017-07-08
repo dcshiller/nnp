@@ -1,4 +1,6 @@
-const PanelDrawer = {}
+const PanelDrawer = {
+  canvas: null
+}
 
 function writeConnectionDetails(connection, list){
   const listTag = document.createElement("li");
@@ -14,9 +16,9 @@ function writeConnectionDetails(connection, list){
   raiseButton.innerHTML = "<i class='fa fa-plus' aria-hidden='true'></i>";
   lowerButton.innerHTML = "<i class='fa fa-minus' aria-hidden='true'></i>";
   removeButton.innerHTML = "<i class='fa fa-times' aria-hidden='true'></i>";
-  raiseButton.addEventListener("click", function(e){connection.increaseStrength(); CanvasManager.redraw(); CanvasManager.focusNode();});
-  lowerButton.addEventListener("click", function(e){connection.decreaseStrength(); CanvasManager.redraw(); CanvasManager.focusNode();});
-  removeButton.addEventListener("click", function(e){connection.remove(); CanvasManager.redraw(); CanvasManager.focusNode();});
+  raiseButton.addEventListener("click", function(e){connection.increaseStrength(); PanelDrawer.canvas.redraw(); PanelDrawer.canvas.focusNode();});
+  lowerButton.addEventListener("click", function(e){connection.decreaseStrength(); PanelDrawer.canvas.redraw(); PanelDrawer.canvas.focusNode();});
+  removeButton.addEventListener("click", function(e){connection.remove(); PanelDrawer.canvas.redraw(); PanelDrawer.canvas.focusNode();});
   buttonBox.appendChild(strength);
   buttonBox.appendChild(raiseButton);
   buttonBox.appendChild(lowerButton);
@@ -56,7 +58,7 @@ function drawConnections(node){
 function drawNodeName(node){
   const nodeName = document.querySelector("#node_name");
   nodeName.value = node.name
-  nodeName.oninput = function(){ node.name = document.querySelector("#node_name").value; CanvasManager.redraw();}
+  nodeName.oninput = function(){ node.name = document.querySelector("#node_name").value; PanelDrawer.canvas.redraw();}
 }
 
 function drawNodeThreshold(node){
@@ -71,4 +73,7 @@ PanelDrawer.updatePanel = function(node){
   drawConnections(node);
 }
 
+PanelDrawer.initialize = function(canvas){
+  this.canvas = canvas;
+}
 module.exports = PanelDrawer;

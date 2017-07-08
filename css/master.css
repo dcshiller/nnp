@@ -24,6 +24,10 @@ body.place canvas {
   cursor: url('../images/place.png') 7 16, auto;
 }
 
+body.select canvas {
+  cursor: url('../images/select.png') 0 0, auto;
+}
+
 body.move canvas {
   cursor: url('../images/move.png') 7 7, auto;
 }
@@ -105,7 +109,6 @@ ul::-webkit-scrollbar-thumb {
   background-color: rgba(0, 0, 0, .5);
   border-radius: 4px;
 }
-
 
 .t-center {
   text-align: center !important

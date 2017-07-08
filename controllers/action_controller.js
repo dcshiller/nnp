@@ -63,13 +63,18 @@ function place(node, e){
   document.removeEventListener("mousemove", window.mouseMoveHandler);
 }
 
+function handleSelectMouseup(e){
+  const node = getNode(eToAbsCoords(e));
+  focusOnSelection(node);
+};
+
 function handleMoveMouseup(e){
   const node = getNode(eToAbsCoords(e));
   focusOnSelection(node);
   if (!node) { return }
   window.mouseUpHandler = place.bind(this, node);
   document.addEventListener("mouseup", window.mouseUpHandler);
-}
+};
 
 function shadowMouse(node, e){
   if (!node) { return }
@@ -79,7 +84,7 @@ function shadowMouse(node, e){
   Canvas.redraw();
   Canvas.reColor();
   // Canvas.shadowNode(coords.x, coords.y);
-}
+};
 
 function drawArrow(node, e){
   Canvas.drawArrowFromNode(node, eToCoords(e));
@@ -94,10 +99,7 @@ function handleMoveMousemove(e){
 
 function handlePlaceMouseup(e){
   const node = getNode(eToAbsCoords(e));
-  if (node) {
-    focusOnSelection(node);
-  }
-  else if (!adjoinNode(eToAbsCoords(e))) {
+  if (!node && !adjoinNode(eToAbsCoords(e))) {
     newCoords = eToAbsCoords(e);
     const node = new Node(newCoords.x, newCoords.y);
     window.focusedNode = node;
@@ -155,11 +157,6 @@ function handleConnectMousemove(e){
   document.addEventListener("mousemove", window.mouseMoveHandler)
 }
 
-// function handleMouseOut(e){
-//   document.removeEventListener("mousemove", window.mouseMoveHandler);
-//   document.removeEventListener("mouseup", window.mouseUpHandler);
-// };
-
 function handleClear(){
   if (!confirm("Clearing all nodes, connections, and states...")){ return }
   network.reset();
@@ -172,6 +169,8 @@ function assignMouseHandlers(){
   document.addEventListener("mousedown", function(e){
     if (e.target.tagName == "CANVAS" && window.editMode) {
       switch (window.editMode) {
+        case "select": 
+          handleSelectMouseup(e); break;
         case "move":
           handleMoveMouseup(e);
           handleMoveMousemove(e); break;
