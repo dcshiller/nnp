@@ -13,15 +13,15 @@ const CanvasManager = {
 PanelDrawer.initialize(CanvasManager);
 
 const nav = function (offsetX, offsetY){
-  self.offsetter.changeOffset(offsetX,offsetY);
-  self.redraw();
-  self.reColor();
-}.bind(CanvasManager);
+  CanvasManager.offsetter.changeOffset(offsetX,offsetY);
+  CanvasManager.redraw();
+  CanvasManager.reColor();
+}
 
-CanvasManager.navUp = nav.bind(0,20)
-CanvasManager.navDown = nav.bind(0,-20)
-CanvasManager.navLeft = nav.bind(20,0)
-CanvasManager.navRight = nav.bind(-20,0)
+CanvasManager.navUp     = nav.bind(null,  0, 20);
+CanvasManager.navDown   = nav.bind(null,  0,-20);
+CanvasManager.navLeft   = nav.bind(null, 20,  0);
+CanvasManager.navRight  = nav.bind(null,-20,  0);
 
 CanvasManager.zoomIn = function(){
   CanvasManager.offsetter.changeProportion(0.1);
@@ -134,6 +134,9 @@ CanvasManager.focusNode = function(){
   highlightSelection();
   if (window.focusedNode){
     PanelDrawer.updatePanel(window.focusedNode);
+  }
+  else {
+    PanelDrawer.clearPanel();
   }
 }
 

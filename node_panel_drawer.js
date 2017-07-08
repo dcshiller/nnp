@@ -66,11 +66,16 @@ function drawNodeThreshold(node){
 }
 
 PanelDrawer.updatePanel = function(node){
+  for (el of document.querySelectorAll('#node_menu > *')){ el.classList.remove('hidden')}
   drawNodeName(node);
   drawNodeThreshold(node);
   drawNodeType(node);
   drawRange(node);
   drawConnections(node);
+}
+
+PanelDrawer.clearPanel = function(){
+  for (el of document.querySelectorAll('#node_menu > *')){ el.classList.add('hidden')}
 }
 
 PanelDrawer.initialize = function(canvas){
