@@ -1,5 +1,6 @@
+const FuncStore = require('./file_store')
 const PanelDrawer = {
-  canvas: null
+  canvas: null,
 }
 
 function writeConnectionDetails(connection, list){
@@ -44,6 +45,23 @@ function drawNodeType(node){
   nodeType.selected = true;
 }
 
+function drawNodeFunc(node){
+  const nodeFuncSelect = document.querySelector('#node_func_select');
+  buildFuncOptions();
+  const nodeFuncOpton = document.querySelector(`#node_func [value='${node.func.to_s}']`);
+  
+}
+
+function buildFuncOptions(){
+  const select = document.querySelector('#node_func_select')
+  for ( funcOption of FuncStore.funcs){
+    const newOption = document.createElement('option');
+    newOption.name = funcOption.name;
+    newOption.innerText = funcOption.name;
+    select.appendChild(newOption)
+  }
+}
+
 function drawConnections(node){
   document.querySelector("#afferent_connection_list").innerHTML = "";
   document.querySelector("#efferent_connection_list").innerHTML = "";
@@ -71,6 +89,7 @@ PanelDrawer.updatePanel = function(node){
   drawNodeThreshold(node);
   drawNodeType(node);
   drawRange(node);
+  drawNodeFunc(node);
   drawConnections(node);
 }
 

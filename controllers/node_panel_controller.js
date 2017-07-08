@@ -1,4 +1,5 @@
 var Canvas;
+var FuncStore = require('../func_store.js');
 
 const NodeTypes = {
   Node: require('../models/node.js'),
@@ -26,6 +27,12 @@ function changeNodeType(){
   window.network.include(newNode);
   window.focusedNode = newNode;
   Canvas.focusNode();
+};
+
+function changeNodeFunc(){
+  const newNodeFuncName = document.querySelector('#node_func_select').value;
+  const newNodeFunc = FuncStore.getFunc(window.focusedNode.func);
+  // More Here
 };
 
 function adjustNodeProbabilityRange(e){
