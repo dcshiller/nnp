@@ -12,4 +12,12 @@ const FuncStore = {
   funcs: funcs
 };
 
+FuncStore.getFunc = function(funcName){
+  const tag = func.tagName;
+  for (funcData of funcs){
+    if (funcName == fundData.name) { return funcData.func; }
+  }
+  return funcs[0].func
+};
+
 module.exports = FuncStore;

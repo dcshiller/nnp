@@ -1,4 +1,4 @@
-const FuncStore = require('./file_store')
+const FuncStore = require('./func_store')
 const PanelDrawer = {
   canvas: null,
 }
@@ -46,10 +46,14 @@ function drawNodeType(node){
 }
 
 function drawNodeFunc(node){
-  const nodeFuncSelect = document.querySelector('#node_func_select');
-  buildFuncOptions();
-  const nodeFuncOpton = document.querySelector(`#node_func [value='${node.func.to_s}']`);
-  
+  if (node.constructor.name == "FunctionalNode") {
+    const nodeFuncSelect = document.querySelector('#node_func_select');
+    buildFuncOptions();
+    const nodeFuncOpton = document.querySelector(`#node_func [value='${node.func.tagName}']`);
+ }
+ else {
+   document.querySelector('.row.function').classList.add('hidden');
+ }
 }
 
 function buildFuncOptions(){

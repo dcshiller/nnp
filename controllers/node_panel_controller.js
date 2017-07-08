@@ -31,8 +31,8 @@ function changeNodeType(){
 
 function changeNodeFunc(){
   const newNodeFuncName = document.querySelector('#node_func_select').value;
-  const newNodeFunc = FuncStore.getFunc(window.focusedNode.func);
-  // More Here
+  const newNodeFunc = FuncStore.getFunc(newNodeFuncName);
+  window.focusedNode.func = newNodeFunc;
 };
 
 function adjustNodeProbabilityRange(e){

@@ -98,17 +98,20 @@ header:hover #menu_menu, #menu_menu:hover {
   justify-content: center;
   margin: auto;
   position: fixed;
-  top: 560px;
-  left: 10px
+  top: 10px;
+  left: 185px
 }
 
 #play_menu li {
+  background: ivory;
   border: 1px solid black;
   border-radius: 3px;
-  margin-right: 20px;
   padding: 10px;
   text-align: center;
-  width: 75px;
+  width: 80px;
+}
+#play_menu li:first-of-type {
+  margin-right: 20px;
 }
 
 li.selected {
