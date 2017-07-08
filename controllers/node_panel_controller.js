@@ -25,6 +25,14 @@ function changeNodeType(){
   window.network.exclude(window.focusedNode);
   window.network.include(newNode);
   window.focusedNode = newNode;
+  Canvas.focusNode();
+}
+
+function adjustNodeProbabilityRange(e){
+  const probability = document.querySelector('#prob_range').value
+  document.querySelector('#prob_value').innerText = probability
+  window.focusedNode.prob = probability
+  e.stopPropagation();
 }
 
 function initialize(canvasManager){
@@ -32,6 +40,8 @@ function initialize(canvasManager){
   document.querySelector("#raise_threshold").onclick = doBoth(raiseThreshold, Canvas.focusNode);
   document.querySelector("#lower_threshold").onclick = doBoth(lowerThreshold, Canvas.focusNode);
   document.querySelector("#node_type").onchange = changeNodeType
+  document.querySelector("#prob_range").onchange = adjustNodeProbabilityRange
+  document.querySelector("#prob_range").onmousedown = adjustNodeProbabilityRange
 };
 
 const NodePanelController = {
