@@ -47,6 +47,7 @@ function drawNodeType(node){
 
 function drawNodeFunc(node){
   if (node.constructor.name == "FunctionalNode") {
+    document.querySelector('.row.function').classList.remove('hidden');
     const nodeFuncSelect = document.querySelector('#node_func_select');
     buildFuncOptions();
     const nodeFuncOpton = document.querySelector(`#node_func [value='${node.func.tagName}']`);
@@ -57,12 +58,13 @@ function drawNodeFunc(node){
 }
 
 function buildFuncOptions(){
-  const select = document.querySelector('#node_func_select')
-  for ( funcOption of FuncStore.funcs){
+  const select = document.querySelector('#node_func_select');
+  select.innerHTML = "";
+  for ( funcOption of FuncStore.funcs ){
     const newOption = document.createElement('option');
     newOption.name = funcOption.name;
     newOption.innerText = funcOption.name;
-    select.appendChild(newOption)
+    select.appendChild(newOption);
   }
 }
 

@@ -1,7 +1,10 @@
 const funcs =  [
   { name: "None", func: function(){} },
-  { name: "Alert", func: alert },
-  { name: "Log", func: console.log }
+  { name: "Alert", func: alert.bind(null, 'Alert!') },
+  { name: "Log", func: console.log.bind(null, 'Log!') },
+  { name: "Move!", func: function(){window.critter.stepForward()} },
+  { name: "Right!", func: function(){window.critter.turnRight()} },
+  { name: "Left!", func: function(){window.critter.turnLeft()} }
 ];
 
 for (funcData of funcs) {
@@ -13,9 +16,8 @@ const FuncStore = {
 };
 
 FuncStore.getFunc = function(funcName){
-  const tag = func.tagName;
   for (funcData of funcs){
-    if (funcName == fundData.name) { return funcData.func; }
+    if (funcName == funcData.name) { return funcData.func; }
   }
   return funcs[0].func
 };

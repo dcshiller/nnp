@@ -125,9 +125,9 @@ CanvasManager.drawArrowFromNode = function(node, coords){
 }
 
 CanvasManager.update = function(){
-  network.updateAll()
-  CanvasManager.reColor()
-  network.rememberAll()
+  network.updateAll();
+  network.rememberAll();
+  CanvasManager.reColor();
 }
 
 CanvasManager.focusNode = function(){

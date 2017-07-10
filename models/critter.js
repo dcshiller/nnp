@@ -1,4 +1,3 @@
-
 function Critter(){
   this.position = { x: 0, y: 0 }
   this.facing = {x: 1, y: 0}

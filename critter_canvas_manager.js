@@ -1,6 +1,5 @@
 const Drawer = require('./critter_drawer.js');
 
-
 const CritterCanvasManager = {
   critterCamCanvas: null,
   critter: null

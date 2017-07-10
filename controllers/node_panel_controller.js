@@ -47,6 +47,7 @@ function initialize(canvasManager){
   document.querySelector("#raise_threshold").onclick = doBoth(raiseThreshold, Canvas.focusNode);
   document.querySelector("#lower_threshold").onclick = doBoth(lowerThreshold, Canvas.focusNode);
   document.querySelector("#node_type").onchange = changeNodeType;
+  document.querySelector("#node_func_select").onchange = changeNodeFunc;
   document.querySelector("#prob_range").onchange = adjustNodeProbabilityRange;
   document.querySelector("#prob_range").onmousedown = adjustNodeProbabilityRange;
 };
