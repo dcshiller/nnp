@@ -35,7 +35,7 @@
       <p>This program can be used to create, run, and save simple neural networks.</p>
       <img src="./images/sample_network.png" alt="sample network">
       <p>A neural network consists of a set of interconnected nodes. Each node has a state, which can be either on or off, a threshold, and a set of connection weights with other nodes.</p>
-      <p>When it is run, the network will evolve over time. At any given time, whether a node is on or not will depend upon the prior states of the nodes with which it was connected. If the weighted sum of the connections of the nodes with which it is connected exceed its threshold, the node turns on. Otherwise, it turns off.</p>
+      <p>When it is run, the network will evolve over time. At any given time, whether a node is on or not will depend upon the prior states of the nodes with which it is connected. If the weighted sum of the connections of the nodes with which it is connected exceed its threshold, the node turns on. Otherwise, it turns off.</p>
       <div class="row">
         <div class="">
           <img src="./images/sample_ignition_1.png" alt="sample evolution">
@@ -44,8 +44,62 @@
           <img src="./images/sample_threshold_2.png" alt="sample evolution">
         </div>
       </div>
-      <p>Additionally, there are two special kinds of nodes: noisy nodes and functional nodes. Noisy nodes have a chance of turning on at any given time, regardless of the prior state of their connections.</p><p>Functional nodes execute a specific action when they turn on. The available actions move the critter ('billy') who can be seen on the critter cam.</p>
-      <p>Derek Shiller 2017</p>
+      <p>Additionally, there are two special kinds of nodes: noisy nodes and functional nodes. Noisy nodes have a chance of turning on at any given time, regardless of the prior state of their connections.</p><p>Functional nodes execute a specific action when they turn on. The available actions all control the critter ('billy'). These include turning left and right and moving forward. </p>
+      <h3 class="menu_title">Interface</h3>
+      <p>There are a number of separate panels that control different aspects of the simulation. Each panel can be toggled visible or invisible from the menu controller in the top left. Panels can be dragged around to manage space. Just click and hold for a second, then drag the panel where you want it to be.</p>
+      <div class="row">
+        <img src="./images/menu_menu.png" alt="" height="150px">
+        <ul>
+          <li>About Menu</li>
+          <li>Action Menu</li>
+          <li>Navigation Menu</li>
+          <li>Node Menu</li>
+          <li>Play Menu</li>
+          <li>Critter Cam</li>
+        </ul>
+      </div>
+      <p>Networks can also be saved and loaded from this dropdown. Networks are saved to files on the users local machine.</p>
+      <p>The <strong>action panel</strong> allows the user to add or alter nodes on the canvas. These actions are:</p>
+      <div class="row">
+        <img src="./images/action_menu.png" alt="" height="200px">
+        <ul class="column" height="200px">
+          <li>Select a node (have it appear in the node menu)</li>
+          <li>Place a node on the canvas</li>
+          <li>Move an existing node</li>
+          <li>Connect two nodes</li>
+          <li>Activate a node</li>
+          <li>Delete a node</li>
+          <li>Clear the network</li>
+        </ul>
+      </div>
+      <p>The <strong>node panel</strong> allows the user to alter the options associated with a particular node and its connections. </p>
+      <div class="row">
+        <img src="./images/node_menu.png" alt="" height="400px">
+          <ul class="column">
+            <li>The node's <strong>name</strong>. This has no affect on anything but the presentation. In order to save your network, however, you will need to assign each node a unique name. Nodes are automatically assigned unique numbers.</li>
+            <li>The node's <strong>threshold</strong>. This is the number that must be exceeded by the weighted *on* connected nodes for this node to turn on at the next time. It is represented by thicker boundaries of the node on the canvas.</li>
+            <li>The node's <strong>type</strong>. Whether it is a normal, noisy, or functional node.</li>
+            <li>The node's <strong>noisiness</strong> (i.e. its probability of turning on) <em>if it is a noisy node</em>.</li>
+            <li>The node's <strong>function</strong>, <em>if it is a functional node</em>. These functions all relate to the behavior of billy, the critter viewable on the critter cam.</li>
+            <li>The node's afferent and efferent <strong>connections</strong>, along with controls to change their weights.</li>
+          </ul>
+      </div>
+      <br><br>
+      <div class="row">
+        <img src="./images/play_menu.png" alt="" height="70px">
+        <p>The <strong>play menu</strong> controls whether the network is actively updating or not. While playing the network will update itself every second. You can also step through each update with the advance button.</p>
+      </div>
+      <div class="row">
+        <img src="./images/navigation_menu.png" alt="" height="100px">
+        <p>The <strong>navigation panel</strong> allows the user to move around the canvas. The directional arrows move the view in the corresponding direction, and the central buttons allow for zooming in and out.</p>
+      </div>
+      <br><br>
+      <div class="row">
+        <img src="./images/critter_cam.png" alt="" height="100px">
+        <p>The <strong>critter cam</strong> displays billy comfortably situated in his cambrian soup. The functions associated with functional nodes can change his location, and these changes will appear here.</p>
+      </div>
+      <br><br>
+      <h6 class="menu_title">Derek Shiller 2017</h6>
     </div>
     <ul id="action_menu" class="menu">
       <li data-mode="select"><img src="images/select.png" alt=""></li>

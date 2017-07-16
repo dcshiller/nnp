@@ -41,14 +41,14 @@ function focusOnSelection(node){
 }
 
 function connect(node, e){
-  const otherNode = getNode(eToAbsCoords(e))
-  focusOnSelection(otherNode)
+  const otherNode = getNode(eToAbsCoords(e));
   if (otherNode && !node.pointsTo(otherNode)){
-    node.pointTo(otherNode)
-    Canvas.redraw()
+    node.pointTo(otherNode);
+    Canvas.redraw();
   }
-  document.removeEventListener(e.type, window.mouseUpHandler)
-  document.removeEventListener("mousemove", window.mouseMoveHandler)
+  focusOnSelection(otherNode);
+  document.removeEventListener(e.type, window.mouseUpHandler);
+  document.removeEventListener("mousemove", window.mouseMoveHandler);
 }
 
 function place(node, e){
@@ -110,12 +110,12 @@ function handlePlaceMouseup(e){
 }
 
 function handleToggleMouseup(e){
-  const node = getNode(eToAbsCoords(e))
-  focusOnSelection(node)
+  const node = getNode(eToAbsCoords(e));
+  focusOnSelection(node);
   if (!node) { return }
   node.lastState ? node.off() : node.on()
-  node.remember()
-  Canvas.reColor()
+  node.remember();
+  Canvas.reColor();
 }
 
 function handleDeleteMouseup(e){
@@ -124,37 +124,38 @@ function handleDeleteMouseup(e){
   else if (node == window.focusedNode) { window.focusedNode = null; Canvas.focusNode();}
   network.nodes.delete(node);
   node.removeAllConnections();
-  Canvas.redraw()
+  Canvas.redraw();
+  Canvas.reColor();
 }
 
 function selectNewModeHandler(e) {
   for (liElement of document.querySelectorAll('#action_menu li')){
-    liElement.classList = liElement.classList.value.replace("selected", "")
+    liElement.classList = liElement.classList.value.replace("selected", "");
   }
   e.currentTarget.classList += 'selected';
-  document.querySelector('body').classList = e.currentTarget.getAttribute('data-mode')
-  window.editMode = e.currentTarget.getAttribute('data-mode')
+  document.querySelector('body').classList = e.currentTarget.getAttribute('data-mode');
+  window.editMode = e.currentTarget.getAttribute('data-mode');
 }
 
 function assignEditModeHandlers(){
   for ( liElement of document.querySelectorAll('#action_menu li')) {
-    liElement.addEventListener("click", selectNewModeHandler)
+    liElement.addEventListener("click", selectNewModeHandler);
   };
 }
 
 function handleConnectMouseup(e){
-  node = getNode(eToAbsCoords(e))
+  node = getNode(eToAbsCoords(e));
   if (!node) { return }
-  focusOnSelection(node)
-  window.mouseUpHandler = connect.bind(this, node)
-  document.addEventListener("mouseup", window.mouseUpHandler)
+  focusOnSelection(node);
+  window.mouseUpHandler = connect.bind(this, node);
+  document.addEventListener("mouseup", window.mouseUpHandler);
 }
 
 function handleConnectMousemove(e){
-  node = getNode(eToAbsCoords(e))
+  node = getNode(eToAbsCoords(e));
   if (!node) { return }
-  window.mouseMoveHandler = drawArrow.bind(this, node)
-  document.addEventListener("mousemove", window.mouseMoveHandler)
+  window.mouseMoveHandler = drawArrow.bind(this, node);
+  document.addEventListener("mousemove", window.mouseMoveHandler);
 }
 
 function handleClear(){
