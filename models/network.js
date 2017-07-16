@@ -1,7 +1,9 @@
-const Node = require('./node.js')
+const Node = require('./node.js');
+const NoisyNode = require('./noisy_node.js');
+const FunctionalNode = require('./functional_node.js');
 // const FunctionalNode = require('./functional_node.js')
 // const FunctionalNode = require('./noisy_node.js')
-const Connection = require('./connection.js')
+const Connection = require('./connection.js');
 
 function Network (){
   this.nodes = new Set();
@@ -64,31 +66,37 @@ Network.prototype.toObj = function(){
     }
   }
   return { nodesList: nodesList, connectionsList: connectionsList }
-}
+};
 
 Network.prototype.toJSON = function(){
   return JSON.stringify(this.toObj());
-}
+};
 
 Network.prototype.getNodeByName = function(name) {
   for (const node of this.nodes){
     if (node.name == name) { return node }
   }
-}
+};
+
+getClass = function(obj){
+  if (obj.type == "Node") return Node;
+  if (obj.type == "NoisyNode") return NoisyNode;
+  if (obj.type == "FunctionalNode") return FunctionalNode;
+};
 
 Network.fromJSON = function(string){
   const obj = JSON.parse(string);
   const network = new Network();
   for (const listedNode of obj.nodesList ) {
-    const newNode = Node.fromObj(listedNode);
+    const newNode = getClass(listedNode).fromObj(listedNode);
     network.include(newNode)
-  }
+  };
   for (const listedCon of obj.connectionsList ) {
     listedCon.fromNode = network.getNodeByName(listedCon.fromNode);
     listedCon.toNode = network.getNodeByName(listedCon.toNode);
     const newCon = Connection.fromObj(listedCon);
-  }
+  };
   return network;
-}
+};
 
 module.exports = Network

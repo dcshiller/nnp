@@ -1,7 +1,5 @@
 const funcs =  [
   { name: "None", func: function(){} },
-  { name: "Alert", func: alert.bind(null, 'Alert!') },
-  { name: "Log", func: console.log.bind(null, 'Log!') },
   { name: "Move!", func: function(){window.critter.stepForward()} },
   { name: "Right!", func: function(){window.critter.turnRight()} },
   { name: "Left!", func: function(){window.critter.turnLeft()} }

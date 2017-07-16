@@ -68,6 +68,39 @@ header:hover #menu_menu, #menu_menu:hover {
   display: block;
 }
 
+#about_menu {
+  position: fixed;
+  top: 10%;
+  bottom: 10%;
+  left: 25%;
+  width: 50%;
+  background: ivory;
+  overflow-y: scroll;
+  padding: 20px;
+  box-shadow: 10px 10px rgba(0,0,0,.15)
+}
+
+#about_menu>img {
+  border: 1px solid tan;
+  display: block;
+  margin: auto;
+  width: 30%;
+}
+
+#about_menu .row div {
+  margin: auto;
+  text-align: center;
+}
+
+#about_menu .row div img {
+  border: 1px solid tan;
+  width: 20%
+}
+
+#about_menu .menu_title  {
+  text-align: center
+}
+
 #action_menu {
   display: flex;
   flex-direction: column;
@@ -161,7 +194,7 @@ li.selected {
 
 .focused_node li {
   display: flex;
-  justify-content: space-between; 
+  justify-content: space-between;
   list-style: none;
 }
 

@@ -6,11 +6,9 @@ const CritterCanvasManager = {
 }
 
 CritterCanvasManager.buildCam = function(){
-  canvas = document.createElement("canvas");
+  canvas = document.getElementById("critter_cam");
   canvas.setAttribute('width', 300);
   canvas.setAttribute('height', 300);
-  canvas.setAttribute("id", "critter_cam");
-  document.querySelector('body').appendChild(canvas);
   this.critterCamCanvas = canvas;
 }
 

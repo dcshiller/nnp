@@ -98,6 +98,7 @@ Node.prototype.removeAllConnections = function(){
 
 Node.prototype.toObj = function(){
   return {
+    type: this.constructor.name,
     state: this.state,
     lastState: this.lastState,
     threshold: this.threshold,
@@ -109,10 +110,14 @@ Node.prototype.toObj = function(){
 
 Node.fromObj = function(obj){
   const node = new Node(obj.x, obj.y, obj.name);
-  node.state = obj.state || 0;
-  node.lastState = obj.lastState || 0;
-  node.threshold = obj.threshold || 1;
+  node.assignBasicProps(obj);
   return node
+}
+
+Node.prototype.assignBasicProps = function(obj){
+  this.state = obj.state || 0;
+  this.lastState = obj.lastState || 0;
+  this.threshold = obj.threshold || 1;
 }
 
 Node.prototype.convertTo = function(className){

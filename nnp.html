@@ -16,10 +16,12 @@
     <header>
       <label id="menu_label">Menu</label>
       <ul id="menu_menu">
+        <li id="about_selector" class="active_selection selectable" data-menu="about_menu">About</li>
         <li id="action_menu_selector" class="active_selection selectable" data-menu="action_menu">Action Menu</li>
         <li id="node_menu_selector" class="selectable" data-menu="node_menu">Node Menu</li>
         <li id="navigation_menu_selector" class="selectable" data-menu="navigation_menu">Navigation Menu</li>
         <li id="play_menu_selector" class="selectable" data-menu="play_menu">Play Menu</li>
+        <li id="critter_cam_selector" class="selectable" data-menu="critter_cam">Critter Cam</li>
         <hr>
         <li id="save_button" data-mode="save">Save</i></li>
         <li id="load_button" name="button">Load</li>
@@ -27,6 +29,24 @@
       </ul>
 
     </header>
+    <div id="about_menu" class="menu">
+      <h1 class="menu_title">About NNP</h1>
+      <h3 class="menu_title">Overview</h3>
+      <p>This program can be used to create, run, and save simple neural networks.</p>
+      <img src="./images/sample_network.png" alt="sample network">
+      <p>A neural network consists of a set of interconnected nodes. Each node has a state, which can be either on or off, a threshold, and a set of connection weights with other nodes.</p>
+      <p>When it is run, the network will evolve over time. At any given time, whether a node is on or not will depend upon the prior states of the nodes with which it was connected. If the weighted sum of the connections of the nodes with which it is connected exceed its threshold, the node turns on. Otherwise, it turns off.</p>
+      <div class="row">
+        <div class="">
+          <img src="./images/sample_ignition_1.png" alt="sample evolution">
+          <img src="./images/sample_ignition_2.png" alt="sample evolution">
+          <img src="./images/sample_threshold_1.png" alt="sample evolution">
+          <img src="./images/sample_threshold_2.png" alt="sample evolution">
+        </div>
+      </div>
+      <p>Additionally, there are two special kinds of nodes: noisy nodes and functional nodes. Noisy nodes have a chance of turning on at any given time, regardless of the prior state of their connections.</p><p>Functional nodes execute a specific action when they turn on. The available actions move the critter ('billy') who can be seen on the critter cam.</p>
+      <p>Derek Shiller 2017</p>
+    </div>
     <ul id="action_menu" class="menu">
       <li data-mode="select"><img src="images/select.png" alt=""></li>
       <li data-mode="place"><img src="images/place.png" alt=""></li>
@@ -102,5 +122,6 @@
         </div>
       </div>
     </div>
+    <canvas id="critter_cam" class="menu hidden"></canvas>
   </body>
 </html>

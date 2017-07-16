@@ -7,7 +7,7 @@ function toggleMenuVisibility(menu_id){
 }
 
 function assignMenuTogglers(){
-  for (const li of document.querySelectorAll("#menu_menu li")) {
+  for (const li of document.querySelectorAll("#menu_menu li[data-menu]")) {
     li.addEventListener("click", toggleMenuVisibility.bind(this, li.getAttribute('data-menu')));
   }
 }
