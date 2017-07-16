@@ -90,6 +90,7 @@ function drawConnection(ctx, connection){
   else {
     drawOtherConnection(ctx, connection);
   }
+  ctx.strokeStyle = "black";
   ctx.closePath();
 }
 
