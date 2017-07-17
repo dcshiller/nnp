@@ -51,7 +51,7 @@ function drawSelfConnection(ctx, connection){
   let arcEndX = toCoords.x - 2 + radius(connection.toNode) * Math.sin(Math.PI/6);
   let arcEndY = toCoords.y + radius(connection.toNode) * Math.cos(Math.PI/6);
   ctx.arc(arcStartX, arcStartY, aj(10), 1.5 * Math.PI, Math.PI);
-  drawArrowHead(arcEndX, arcEndY, .4, aj(6));
+  drawArrowHead(arcEndX - (Drawer.offsetter.proportion - 1) * 2, arcEndY, .4, aj(6));
   ctx.stroke();
 }
 
