@@ -50,7 +50,8 @@ function drawNodeFunc(node){
     document.querySelector('.row.function').classList.remove('hidden');
     const nodeFuncSelect = document.querySelector('#node_func_select');
     buildFuncOptions();
-    const nodeFuncOpton = document.querySelector(`#node_func [value='${node.func.tagName}']`);
+    const nodeFuncOption = document.querySelector(`#node_func_select [value='${node.func.tagName}']`);
+    nodeFuncOption.selected = true;
  }
  else {
    document.querySelector('.row.function').classList.add('hidden');
@@ -64,6 +65,7 @@ function buildFuncOptions(){
     const newOption = document.createElement('option');
     newOption.name = funcOption.name;
     newOption.innerText = funcOption.name;
+    newOption.value = funcOption.name;
     select.appendChild(newOption);
   }
 }
