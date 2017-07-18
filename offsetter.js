@@ -25,6 +25,12 @@ Offsetter.changeProportion = function(diff){
   Offsetter.y += (500 / Offsetter.proportion) * ( 1 - (Offsetter.proportion / oldProp)) / 2;
 }
 
+Offsetter.resetOffset = function(){
+  Offsetter.x = 0;
+  Offsetter.y = 0;
+  Offsetter.proportion = 1;
+}
+
 Offsetter.offset = function(positionable){
   return {
            x: aj(positionable.x + Offsetter.x),

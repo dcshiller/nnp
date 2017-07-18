@@ -35,6 +35,12 @@ CanvasManager.zoomOut = function(){
   CanvasManager.reColor();
 }
 
+CanvasManager.resetZoom = function(){
+  CanvasManager.offsetter.resetOffset();
+  CanvasManager.redraw();
+  CanvasManager.reColor();
+}
+
 CanvasManager.create = function(id){
   const canvas = document.createElement("canvas");
   canvas.setAttribute('width', window.innerWidth);
