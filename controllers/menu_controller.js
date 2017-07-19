@@ -1,14 +1,20 @@
 
 function toggleMenuVisibility(menu_id){
   const menu = document.querySelector("#" + menu_id);
-  const menuSelector = document.querySelector("#" + menu_id + "_selector")
+  const menuSelector = document.querySelector("#" + menu_id + "_selector");
   menu.classList.toggle("hidden");
-  menuSelector.classList.toggle("active_selection")
+  menuSelector.classList.toggle("active_selection");
 }
 
 function assignMenuTogglers(){
   for (const li of document.querySelectorAll("#menu_menu li[data-menu]")) {
     li.addEventListener("click", toggleMenuVisibility.bind(this, li.getAttribute('data-menu')));
+  }
+}
+
+function assignMenuClosers(){
+  for (const closer of document.querySelectorAll('[data-close-menu]')) {
+    closer.addEventListener('click', toggleMenuVisibility.bind(null, closer.getAttribute('data-close-menu')));
   }
 }
 
@@ -36,5 +42,5 @@ function assignMenuMovers(){
 }
 
 module.exports = {
-  initialize: doBoth(assignMenuTogglers, assignMenuMovers)
+  initialize: doEach(assignMenuTogglers, assignMenuMovers, assignMenuClosers)
 }

@@ -68,6 +68,10 @@ header:hover #menu_menu, #menu_menu:hover {
   display: block;
 }
 
+.closer {
+  float: right;
+}
+
 #about_menu {
   position: fixed;
   top: 10%;

@@ -146,4 +146,6 @@ CanvasManager.focusNode = function(){
   }
 }
 
+window.addEventListener('resize', CanvasManager.redraw)
+
 module.exports = CanvasManager;
