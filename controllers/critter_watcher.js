@@ -6,25 +6,21 @@ const CritterWatcher = {
       canvas.buildCam();
       canvas.drawCritter(window.critter);
       setInterval(checkForUpdate, 50);
-  },
-  timeStamp: new Date()
+  }
 };
 
 function handleUpdate(i){
-  !i && (i = 0)
+  if ( !i ) { i = 0; CritterWatcher.critter.startAction();  }
   if (i < 5) { setTimeout( function(){canvas.drawCritter( CritterWatcher.critter, i ); handleUpdate(i + 1) }, 100 ) }
-  CritterWatcher.timeStamp = window.critter.timeStamp
+  else { CritterWatcher.critter.endAction(); }
 };
 
 function needsRerender(){
-  return window.critter.timeStamp > CritterWatcher.timeStamp;
+  return CritterWatcher.critter.ready();
 };
 
-
 function checkForUpdate(){
-  if(needsRerender()){
-    handleUpdate()
-  }
+  if (needsRerender()){ handleUpdate() }
 }
 
 module.exports = CritterWatcher;

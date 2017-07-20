@@ -1,27 +1,52 @@
 function Critter(){
   this.position = { x: 0, y: 0 }
   this.facing = {x: 1, y: 0}
-  this.timeStamp = new Date();
+  this.ongoingAction = null;
+  this.actionQueue = [];
+};
+
+Critter.prototype.ready = function(){
+  return !this.ongoingAction && (this.actionQueue.length > 0)
 }
 
-Critter.prototype.stepForward = function(){
+Critter.prototype.startAction = function(){
+  if (!this.ongoingAction) { this.ongoingAction = this.actionQueue.shift() };
+};
+
+Critter.prototype.endAction = function(){
+  if (this.ongoingAction) { this.ongoingAction.call(this); }
+  this.ongoingAction = null;
+}
+
+const performStepForward = function(){
   this.position = addPositions(this.position, this.facing);
-  this.updateTimeStamp();
+};
+
+Critter.prototype.stepForward = function(){
+  func = performStepForward;
+  func.tagName = "stepForward";
+  this.actionQueue.push(func);
+};
+
+const performTurnLeft = function(){
+  this.facing = {x: this.facing.y, y: -1 * this.facing.x};
 }
 
 Critter.prototype.turnLeft = function(){
-  this.facing = {x: this.facing.y, y: -1 * this.facing.x};
-  this.updateTimeStamp();
+  func = performTurnLeft;
+  func.tagName = "turnLeft";
+  this.actionQueue.push(func)
+}
+
+const performTurnRight = function(){
+  this.facing = {x: -1 * this.facing.y, y: this.facing.x};
 }
 
 Critter.prototype.turnRight = function(){
-  this.facing = {x: -1 * this.facing.y, y: this.facing.x};
-  this.updateTimeStamp();
+  func = performTurnRight;
+  func.tagName = "turnRight";
+  this.actionQueue.push(func)
 }
-
-Critter.prototype.updateTimeStamp = function(){
-  this.timeStamp = new Date();
-};
 
 function addPositions(pos1, pos2){
   return {x: pos1.x + pos2.x, y: pos1.y + pos2.y};

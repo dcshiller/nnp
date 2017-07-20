@@ -18,19 +18,19 @@ const nav = function (offsetX, offsetY){
   CanvasManager.reColor();
 }
 
-CanvasManager.navUp     = nav.bind(null,  0, 20);
-CanvasManager.navDown   = nav.bind(null,  0,-20);
-CanvasManager.navLeft   = nav.bind(null, 20,  0);
-CanvasManager.navRight  = nav.bind(null,-20,  0);
+CanvasManager.navUp     = nav.bind(null,  0, 40);
+CanvasManager.navDown   = nav.bind(null,  0,-40);
+CanvasManager.navLeft   = nav.bind(null, 40,  0);
+CanvasManager.navRight  = nav.bind(null,-40,  0);
 
 CanvasManager.zoomIn = function(){
-  CanvasManager.offsetter.changeProportion(0.1);
+  CanvasManager.offsetter.changeProportion(0.2);
   CanvasManager.redraw();
   CanvasManager.reColor();
 }
 
 CanvasManager.zoomOut = function(){
-  CanvasManager.offsetter.changeProportion(-0.1);
+  CanvasManager.offsetter.changeProportion(-0.2);
   CanvasManager.redraw();
   CanvasManager.reColor();
 }
