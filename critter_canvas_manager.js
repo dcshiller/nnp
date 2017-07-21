@@ -2,7 +2,6 @@ const Drawer = require('./critter_drawer.js');
 
 const CritterCanvasManager = {
   critterCamCanvas: null,
-  critter: null
 }
 
 CritterCanvasManager.buildCam = function(){
@@ -10,10 +9,6 @@ CritterCanvasManager.buildCam = function(){
   canvas.setAttribute('width', 300);
   canvas.setAttribute('height', 300);
   this.critterCamCanvas = canvas;
-}
-
-CritterCanvasManager.setCritter = function(critter){
-  this.critter = critter;
 }
 
 CritterCanvasManager.drawCritter = function(critter, offset){

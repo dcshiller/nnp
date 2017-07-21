@@ -5,6 +5,11 @@ function Critter(){
   this.actionQueue = [];
 };
 
+Critter.prototype.addToQueue = function(func){
+  if (this.actionQueue.length > 3) { return  }
+  this.actionQueue.push(func);
+};
+
 Critter.prototype.ready = function(){
   return !this.ongoingAction && (this.actionQueue.length > 0)
 }
@@ -25,7 +30,7 @@ const performStepForward = function(){
 Critter.prototype.stepForward = function(){
   func = performStepForward;
   func.tagName = "stepForward";
-  this.actionQueue.push(func);
+  this.addToQueue(func);
 };
 
 const performTurnLeft = function(){
@@ -35,7 +40,7 @@ const performTurnLeft = function(){
 Critter.prototype.turnLeft = function(){
   func = performTurnLeft;
   func.tagName = "turnLeft";
-  this.actionQueue.push(func)
+  this.addToQueue(func);
 }
 
 const performTurnRight = function(){
@@ -45,7 +50,7 @@ const performTurnRight = function(){
 Critter.prototype.turnRight = function(){
   func = performTurnRight;
   func.tagName = "turnRight";
-  this.actionQueue.push(func)
+  this.addToQueue(func);
 }
 
 function addPositions(pos1, pos2){
