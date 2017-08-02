@@ -1,5 +1,5 @@
 var Node = require('./node.js');
-var FuncStore = require('../func_store.js');
+var FuncStore = require('../helpers/func_store.js');
 
 function FunctionalNode(x,y,name,func){
   this.connections = { to: new Set(), from: new Set() };

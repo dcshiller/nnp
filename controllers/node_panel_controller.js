@@ -1,5 +1,5 @@
 var Canvas;
-var FuncStore = require('../func_store.js');
+var FuncStore = require('../helpers/func_store.js');
 
 const NodeTypes = {
   Node: require('../models/node.js'),

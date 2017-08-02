@@ -1,7 +1,7 @@
 // Organizes deployment of drawer methods
 
-const Drawer = require('./drawer.js');
-const PanelDrawer = require('./node_panel_drawer');
+const Drawer = require('./views/drawer.js');
+const PanelDrawer = require('./views/node_panel_drawer');
 
 const CanvasManager = {
   stateCanvas: null,
